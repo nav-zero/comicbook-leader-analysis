@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book 2 — THE ANATOMY OF POWER · Comparative Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Special+Elite&family=Oswald:wght@400;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1a1008;
+  --paper: #f5edd6;
+  --paper2: #ede0c0;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --yellow: #f1c40f;
+  --blue: #1a3a5c;
+  --blue2: #2980b9;
+  --panel-border: 4px solid #1a1008;
+  --shadow: 6px 6px 0 #1a1008;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #2c1810;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+  );
+  font-family: 'Special Elite', serif;
+  color: var(--ink);
+  cursor: default;
+}
+
+/* ── HALFTONE TEXTURE ── */
+.halftone {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+/* ══════════════════════════════════════
+   COVER PAGE
+══════════════════════════════════════ */
+#cover {
+  min-height: 100vh;
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 20px;
+  border-bottom: 8px solid var(--ink);
+}
+
+#cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.cover-banner {
+  background: var(--red);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: clamp(11px, 1.5vw, 14px);
+  letter-spacing: 0.3em;
+  padding: 8px 32px;
+  border: 3px solid var(--ink);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  position: relative; z-index: 2;
+}
+
+.cover-issue {
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  margin-bottom: 6px;
+  position: relative; z-index: 2;
+}
+
+.cover-title {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(52px, 10vw, 110px);
+  line-height: 0.9;
+  color: var(--ink);
+  text-align: center;
+  letter-spacing: 0.03em;
+  position: relative; z-index: 2;
+  text-shadow: 4px 4px 0 var(--red);
+}
+
+.cover-title span { color: var(--red); text-shadow: 4px 4px 0 var(--ink); }
+
+.cover-subtitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(14px, 2.5vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--blue);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 8px 24px;
+  margin: 16px 0 24px;
+  text-align: center;
+  position: relative; z-index: 2;
+  background: var(--yellow);
+}
+
+/* Three character portrait panels on cover */
+.cover-portraits {
+  display: flex; gap: 0;
+  border: var(--panel-border);
+  box-shadow: var(--shadow);
+  position: relative; z-index: 2;
+  margin-bottom: 24px;
+}
+
+.portrait-panel {
+  width: clamp(100px, 22vw, 200px);
+  height: clamp(130px, 28vw, 260px);
+  border-right: var(--panel-border);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding-bottom: 10px;
+}
+.portrait-panel:last-child { border-right: none; }
+
+.portrait-panel svg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.portrait-label {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(14px, 2.5vw, 22px);
+  letter-spacing: 0.1em;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+  position: relative; z-index: 2;
+  text-align: center;
+}
+
+.portrait-year {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(9px, 1.5vw, 13px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+  position: relative; z-index: 2;
+}
+
+.cover-disclaimer {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  max-width: 560px;
+  line-height: 1.5;
+  border: 2px dashed #999;
+  padding: 10px 16px;
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+
+.cover-start-btn {
+  font-family: 'Bangers', cursive;
+  font-size: 24px;
+  letter-spacing: 0.15em;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: var(--shadow);
+  padding: 12px 36px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  position: relative; z-index: 2;
+  text-decoration: none;
+  display: inline-block;
+}
+.cover-start-btn:hover { transform: translate(2px,2px); box-shadow: 4px 4px 0 var(--ink); }
+
+/* ══════════════════════════════════════
+   PAGE / CHAPTER STRUCTURE
+══════════════════════════════════════ */
+.comic-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: none;
+}
+.comic-page.active { display: block; }
+
+/* Chapter header ribbon */
+.chapter-ribbon {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: clamp(22px, 5vw, 42px);
+  letter-spacing: 0.12em;
+  padding: 12px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between;
+  border: var(--panel-border);
+  box-shadow: var(--shadow);
+}
+
+.chapter-ribbon .ch-num {
+  font-size: clamp(14px, 2.5vw, 20px);
+  color: var(--red2);
+  letter-spacing: 0.2em;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+}
+
+/* ── PANEL GRID ── */
+.panel-grid {
+  display: grid;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.panel {
+  background: var(--paper);
+  border: var(--panel-border);
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+}
+
+/* Comic panel accent line (ink bleed) */
+.panel::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(0,0,0,0.08);
+  pointer-events: none;
+}
+
+.panel.yellow-bg  { background: #fef9e7; }
+.panel.red-bg     { background: #fdedec; }
+.panel.blue-bg    { background: #eaf4fb; }
+.panel.dark-bg    { background: var(--ink); color: var(--paper); }
+.panel.paper2-bg  { background: var(--paper2); }
+
+/* Specific grid layouts */
+.grid-3col    { grid-template-columns: 1fr 1fr 1fr; }
+.grid-2col    { grid-template-columns: 1fr 1fr; }
+.grid-2-1     { grid-template-columns: 2fr 1fr; }
+.grid-1-2     { grid-template-columns: 1fr 2fr; }
+.grid-3-1     { grid-template-columns: 3fr 1fr; }
+.grid-1col    { grid-template-columns: 1fr; }
+.span2        { grid-column: span 2; }
+.span3        { grid-column: span 3; }
+
+/* ── SPEECH BUBBLES ── */
+.bubble {
+  background: white;
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  padding: 10px 14px;
+  font-family: 'Bangers', cursive;
+  font-size: clamp(14px, 2vw, 18px);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  position: relative;
+  display: inline-block;
+  box-shadow: 3px 3px 0 var(--ink);
+  margin: 6px 0;
+  max-width: 100%;
+}
+.bubble.thought {
+  border-radius: 50%;
+  border-style: dashed;
+  font-style: italic;
+}
+.bubble.shout {
+  background: var(--yellow);
+  border-color: var(--ink);
+  transform: rotate(-1deg);
+  font-size: clamp(16px, 2.5vw, 24px);
+}
+.bubble.caption {
+  border-radius: 4px;
+  background: var(--yellow);
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(11px, 1.5vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: block;
+}
+.bubble.red-bubble { background: var(--red); color: white; border-color: var(--ink); }
+.bubble.blue-bubble { background: var(--blue); color: white; border-color: var(--ink); }
+
+/* Tail for speech bubbles */
+.bubble-wrap { position: relative; display: inline-block; margin: 4px; }
+
+/* ── PANEL TYPOGRAPHY ── */
+.panel-title {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(22px, 4vw, 38px);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.panel-title.red { color: var(--red); }
+.panel-title.yellow { color: var(--yellow); -webkit-text-stroke: 1px var(--ink); }
+
+.panel-body {
+  font-family: 'Special Elite', serif;
+  font-size: clamp(12px, 1.6vw, 14.5px);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.panel-body.white { color: var(--paper); }
+
+.panel-caption {
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(10px, 1.3vw, 12px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--ink);
+  color: var(--yellow);
+  padding: 3px 8px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.footnote {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ── SFX / IMPACT WORDS ── */
+.sfx {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(36px, 8vw, 80px);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  -webkit-text-stroke: 2px var(--ink);
+  display: block;
+  margin: 4px 0;
+}
+.sfx.red    { color: var(--red); }
+.sfx.yellow { color: var(--yellow); }
+.sfx.blue   { color: var(--blue2); }
+.sfx.white  { color: white; }
+
+/* ── DATA TABLE STYLING ── */
+.comic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(10px, 1.3vw, 12px);
+  margin: 8px 0;
+}
+.comic-table th {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(10px, 1.3vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 6px 8px;
+  border: 2px solid var(--ink);
+  text-align: left;
+}
+.comic-table td {
+  padding: 5px 8px;
+  border: 2px solid var(--ink);
+  background: white;
+  vertical-align: top;
+  line-height: 1.4;
+}
+.comic-table tr:nth-child(even) td { background: #f0e8d0; }
+.comic-table td.red-cell { background: #fde8e8; font-weight: 700; }
+.comic-table td.hl { font-weight: 700; color: var(--red); }
+
+/* ── STAT BOX ── */
+.stat-box {
+  border: 3px solid var(--ink);
+  padding: 12px;
+  text-align: center;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 var(--ink);
+  margin: 6px 0;
+}
+.stat-num {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 0.05em;
+  color: var(--red);
+  -webkit-text-stroke: 1px var(--ink);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(10px, 1.3vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.3;
+  display: block;
+  margin-top: 4px;
+}
+.stat-source { font-family: 'Courier Prime', monospace; font-size: 9px; color: #666; margin-top: 3px; display: block; }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  border-left: 6px solid var(--red);
+  background: white;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-family: 'Special Elite', serif;
+  font-size: clamp(12px, 1.5vw, 14px);
+  font-style: italic;
+  line-height: 1.5;
+}
+.quote-attr {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  margin-top: 5px;
+  display: block;
+}
+
+/* ── SCROLL PANEL (horizontal comparison strips) ── */
+.compare-strip {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr 1fr;
+  border: var(--panel-border);
+  box-shadow: var(--shadow);
+  margin: 8px 0;
+  overflow: hidden;
+}
+.strip-row { display: contents; }
+.strip-cell {
+  border-right: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 8px 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(10px, 1.3vw, 12px);
+  line-height: 1.4;
+}
+.strip-cell:last-child { border-right: none; }
+.strip-header {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(10px, 1.4vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  display: flex; align-items: center; justify-content: center;
+}
+.strip-category {
+  background: var(--blue);
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(10px, 1.3vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  display: flex; align-items: center; padding-left: 10px;
+}
+.strip-h-bg  { background: #fde8e8; }
+.strip-t-bg  { background: #eaf4fb; }
+.strip-n-bg  { background: #fef9e7; }
+
+/* ── PAGE NAVIGATION ── */
+#page-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  gap: 0;
+  z-index: 100;
+  border-top: 4px solid var(--yellow);
+  padding: 0;
+}
+
+.nav-btn {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(12px, 2vw, 16px);
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  background: transparent;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  white-space: nowrap;
+}
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { color: var(--yellow); background: rgba(255,255,255,0.05); }
+.nav-btn.active { color: var(--yellow); background: rgba(255,255,255,0.08); border-bottom: 3px solid var(--yellow); }
+.nav-arrow {
+  font-family: 'Bangers', cursive;
+  font-size: 18px;
+  color: var(--yellow);
+  background: var(--red);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-right: 2px solid rgba(255,255,255,0.2);
+  transition: background 0.2s;
+}
+.nav-arrow:hover { background: var(--red2); }
+
+body { padding-bottom: 56px; }
+
+/* ── SPLAT / ACTION SHAPES ── */
+.splat {
+  display: inline-block;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  padding: 8px 14px;
+  transform: rotate(-2deg);
+  font-family: 'Bangers', cursive;
+  font-size: clamp(13px, 2vw, 18px);
+  letter-spacing: 0.06em;
+  box-shadow: 3px 3px 0 var(--ink);
+  margin: 4px;
+}
+.splat.red { background: var(--red); color: white; }
+.splat.blue { background: var(--blue); color: white; }
+.splat.rotate-pos { transform: rotate(1.5deg); }
+.splat.rotate-neg { transform: rotate(-2.5deg); }
+
+/* ── ARROW CONNECTOR ── */
+.arrow-down {
+  text-align: center;
+  font-size: 28px;
+  color: var(--red);
+  padding: 2px 0;
+  display: block;
+  font-family: 'Bangers', cursive;
+}
+
+/* ── PROGRESS DOTS ── */
+.progress-strip {
+  display: flex; gap: 4px; align-items: center;
+  padding: 6px 12px;
+  border-right: 2px solid rgba(255,255,255,0.1);
+}
+.prog-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+}
+.prog-dot.done { background: var(--yellow); border-color: var(--yellow); }
+.prog-dot.current { background: var(--red2); border-color: var(--red); width: 10px; height: 10px; }
+
+/* ── CHAPTER DIVIDER ── */
+.chapter-div {
+  background: var(--red);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  text-align: center;
+  padding: 5px;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  margin: 0 0 0 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .grid-3col { grid-template-columns: 1fr; }
+  .grid-2col { grid-template-columns: 1fr; }
+  .grid-2-1  { grid-template-columns: 1fr; }
+  .grid-1-2  { grid-template-columns: 1fr; }
+  .grid-3-1  { grid-template-columns: 1fr; }
+  .span2, .span3 { grid-column: span 1; }
+  .compare-strip { grid-template-columns: 100px 1fr 1fr 1fr; }
+  .cover-portraits { flex-direction: row; }
+  .sfx { font-size: clamp(28px,10vw,60px); }
+}
+
+/* ── PANEL HOVER ── */
+.panel { transition: transform 0.15s; }
+.panel:hover { transform: scale(1.005); z-index: 10; }
+
+/* ── TOOLTIP ── */
+[data-tip] { cursor: help; border-bottom: 2px dashed var(--red); }
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  padding: 4px 8px;
+  border: 2px solid var(--yellow);
+  z-index: 50;
+  max-width: 200px;
+  white-space: normal;
+  top: 100%; left: 0;
+  line-height: 1.4;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     COVER
+══════════════════════════════════════ -->
+<div id="cover">
+  <div class="cover-banner">★ POLITICAL SCIENCE QUARTERLY SPECIAL EDITION ★</div>
+  <a href="index.html" style="display:inline-block;margin-bottom:12px;color:var(--ink);font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-decoration:none;border-bottom:2px solid var(--red);">← Back to Home</a>
+  <div class="cover-issue">ISSUE NO. 2 &nbsp;·&nbsp; MARCH 2026 &nbsp;·&nbsp; 10 CHAPTERS</div>
+
+  <div class="cover-title">THE<br><span>ANATOMY</span><br>OF POWER</div>
+  <div class="cover-subtitle">A Comparative Analysis: Hitler · Trump · Netanyahu</div>
+
+  <!-- Portrait triptych -->
+  <div class="cover-portraits">
+    <!-- Hitler portrait (stylised silhouette only - no photorealism) -->
+    <div class="portrait-panel" style="background:#2c1810;">
+      <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="260" fill="#2c1810"/>
+        <rect width="200" height="260" fill="url(#dots)" opacity="0.3"/>
+        <defs>
+          <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
+            <circle cx="4" cy="4" r="1" fill="#555"/>
+          </pattern>
+        </defs>
+        <!-- Stylised silhouette shape -->
+        <ellipse cx="100" cy="90" rx="42" ry="50" fill="#4a3020"/>
+        <rect x="70" y="130" width="60" height="90" rx="4" fill="#3a2010"/>
+        <!-- Simple iconic mustache -->
+        <rect x="90" y="112" width="20" height="8" rx="2" fill="#1a1008"/>
+        <!-- Eyes -->
+        <ellipse cx="86" cy="96" rx="6" ry="5" fill="#1a1008"/>
+        <ellipse cx="114" cy="96" rx="6" ry="5" fill="#1a1008"/>
+        <ellipse cx="86" cy="96" rx="3" ry="3" fill="#fff"/>
+        <ellipse cx="114" cy="96" rx="3" ry="3" fill="#fff"/>
+        <!-- Dark arm band shape -->
+        <rect x="70" y="170" width="60" height="12" rx="2" fill="#c0392b"/>
+        <!-- Year band at bottom -->
+        <rect x="0" y="228" width="200" height="32" fill="rgba(0,0,0,0.6)"/>
+      </svg>
+      <div class="portrait-label">HITLER</div>
+      <div class="portrait-year">1933 – 1945</div>
+    </div>
+    <!-- Trump portrait -->
+    <div class="portrait-panel" style="background:#1a3a5c;">
+      <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="260" fill="#1a3a5c"/>
+        <defs>
+          <pattern id="dots2" width="8" height="8" patternUnits="userSpaceOnUse">
+            <circle cx="4" cy="4" r="1" fill="#2c5a8c" opacity="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="200" height="260" fill="url(#dots2)"/>
+        <ellipse cx="100" cy="88" rx="46" ry="52" fill="#d4956a"/>
+        <rect x="66" y="132" width="68" height="88" rx="4" fill="#1a3a5c"/>
+        <!-- Iconic hair -->
+        <path d="M54 80 Q60 40 100 44 Q140 40 148 76 Q140 58 100 60 Q62 60 54 80Z" fill="#f0c040"/>
+        <!-- Eyes -->
+        <ellipse cx="85" cy="88" rx="7" ry="5" fill="#2c1808"/>
+        <ellipse cx="115" cy="88" rx="7" ry="5" fill="#2c1808"/>
+        <ellipse cx="85" cy="88" rx="3.5" ry="2.5" fill="#fff"/>
+        <ellipse cx="115" cy="88" rx="3.5" ry="2.5" fill="#fff"/>
+        <!-- Mouth -->
+        <path d="M83 112 Q100 108 117 112" stroke="#2c1808" stroke-width="3" fill="none"/>
+        <!-- Tie -->
+        <path d="M93 140 L107 140 L112 200 L100 215 L88 200Z" fill="#c0392b"/>
+        <rect x="0" y="228" width="200" height="32" fill="rgba(0,0,0,0.6)"/>
+      </svg>
+      <div class="portrait-label">TRUMP</div>
+      <div class="portrait-year">2025 – 2026</div>
+    </div>
+    <!-- Netanyahu portrait -->
+    <div class="portrait-panel" style="background:#1a5c3a;">
+      <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="260" fill="#1a5c3a"/>
+        <defs>
+          <pattern id="dots3" width="8" height="8" patternUnits="userSpaceOnUse">
+            <circle cx="4" cy="4" r="1" fill="#2c8c5a" opacity="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="200" height="260" fill="url(#dots3)"/>
+        <ellipse cx="100" cy="92" rx="44" ry="50" fill="#c8a080"/>
+        <rect x="68" y="134" width="64" height="86" rx="4" fill="#1a4028"/>
+        <!-- Grey/white hair -->
+        <path d="M56 86 Q58 52 100 50 Q142 52 144 86 Q140 64 100 66 Q60 64 56 86Z" fill="#d0d0d0"/>
+        <!-- Eyes -->
+        <ellipse cx="85" cy="90" rx="7" ry="5" fill="#2c1808"/>
+        <ellipse cx="115" cy="90" rx="7" ry="5" fill="#2c1808"/>
+        <ellipse cx="85" cy="90" rx="3.5" ry="2.5" fill="#fff"/>
+        <ellipse cx="115" cy="90" rx="3.5" ry="2.5" fill="#fff"/>
+        <!-- Eyebrows prominent -->
+        <path d="M77 81 Q85 77 93 81" stroke="#444" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M107 81 Q115 77 123 81" stroke="#444" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Mouth serious -->
+        <path d="M85 115 Q100 112 115 115" stroke="#2c1808" stroke-width="2.5" fill="none"/>
+        <!-- Flag pin -->
+        <circle cx="88" cy="148" r="6" fill="#f0f0f0" stroke="#1a1008" stroke-width="1.5"/>
+        <rect x="0" y="228" width="200" height="32" fill="rgba(0,0,0,0.6)"/>
+      </svg>
+      <div class="portrait-label">NETANYAHU</div>
+      <div class="portrait-year">2022 – 2026</div>
+    </div>
+  </div>
+
+  <div class="cover-disclaimer">
+    ⚠ EDITORIAL NOTE: This interactive presentation adapts an academic analysis published March 2026. Comparisons presented are those of the cited researchers and sources. The Hitler comparisons are contested interpretations, not established consensus. All data attributed to original sources.
+  </div>
+
+  <a class="cover-start-btn" href="#" onclick="goToPage(1); return false;">READ THE ISSUE ➤</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 1 — FRAMEWORK & CONTEXT
+══════════════════════════════════════ -->
+<div class="comic-page" id="page-1">
+
+  <div class="chapter-ribbon">
+    <span class="ch-num">CH. 1</span>
+    THE FRAMEWORK
+    <span class="ch-num">MARCH 2026</span>
+  </div>
+
+  <div class="panel-grid grid-1col">
+    <div class="panel dark-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">NARRATOR BOX</span>
+      <p class="panel-body white" style="font-size:clamp(13px,1.8vw,16px); line-height:1.7;">
+        The year is <strong style="color:var(--yellow);">March 2026</strong>. A joint U.S.-Israeli military campaign — <em>"Operation Epic Fury"</em> and <em>"Operation Lion's Roar"</em> — is entering its third week against the Islamic Republic of Iran. Two sitting executives face mounting legal crises at home. A research team asks a question that cuts across decades and continents:
+      </p>
+      <div class="sfx yellow" style="margin-top:8px;">DO PATTERNS REPEAT?</div>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-2col" style="margin-top:0;">
+    <div class="panel yellow-bg">
+      <span class="panel-caption">THEORETICAL FRAMEWORK</span>
+      <p class="panel-title">The Morphological Method</p>
+      <p class="panel-body">The researchers treat political actors as <strong>data points</strong> within systemic behavior — stripping away emotional valence to examine structure alone. Three recurring patterns are tracked:</p>
+      <div style="margin-top:10px; display:flex; flex-direction:column; gap:6px;">
+        <div class="splat rotate-neg">① POPULIST MOBILIZATION</div>
+        <div class="splat rotate-pos">② INSTITUTIONAL EROSION</div>
+        <div class="splat rotate-neg" style="background:var(--red);color:white;">③ EXTERNAL CONFLICT AS SHIELD</div>
+      </div>
+      <p class="footnote">Source: Comparative Leader Analysis, March 2026</p>
+    </div>
+    <div class="panel red-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">THE THREE SUBJECTS</span>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+        <div style="border-left:4px solid #2c1810; padding-left:10px;">
+          <div class="bubble caption">SUBJECT 1: ADOLF HITLER — Germany, 1933</div>
+          <p class="panel-body" style="margin-top:4px;">Historical baseline. The 20th-century German executive whose consolidation of power provides the structural template.</p>
+        </div>
+        <div style="border-left:4px solid var(--blue); padding-left:10px;">
+          <div class="bubble caption" style="background:var(--blue); color:white;">SUBJECT 2: DONALD TRUMP — USA, 2025–2026</div>
+          <p class="panel-body" style="margin-top:4px;">47th U.S. President. First convicted felon elected. Faces 2026 midterms with 39.7–44.3% approval.</p>
+        </div>
+        <div style="border-left:4px solid var(--blue2); padding-left:10px;">
+          <div class="bubble caption" style="background:var(--blue); color:white;">SUBJECT 3: BENJAMIN NETANYAHU — Israel, 2022–2026</div>
+          <p class="panel-body" style="margin-top:4px;">Longest-serving Israeli PM. Active defendant in corruption cases 1000, 2000, and 4000.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel" style="background:var(--ink); padding: 12px 16px;">
+      <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center;">
+        <div class="stat-box" style="flex:1; min-width:130px;">
+          <span class="stat-num">Feb 28</span>
+          <span class="stat-label">Operation Epic Fury launch date</span>
+          <span class="stat-source">Wikipedia / Recorded Future, 2026</span>
+        </div>
+        <div class="stat-box" style="flex:1; min-width:130px;">
+          <span class="stat-num">900+</span>
+          <span class="stat-label">Strikes in first 12 hours</span>
+          <span class="stat-source">ISW Special Report, Mar 13 2026</span>
+        </div>
+        <div class="stat-box" style="flex:1; min-width:130px;">
+          <span class="stat-num">80%</span>
+          <span class="stat-label">Iranian offensive capacity destroyed (claimed)</span>
+          <span class="stat-source">ISW / US-Israeli estimates</span>
+        </div>
+        <div class="stat-box" style="flex:1; min-width:130px; background:var(--red);">
+          <span class="stat-num" style="color:var(--yellow);">4–5K</span>
+          <span class="stat-label">Iranian military fatalities (US/Israeli estimate)</span>
+          <span class="stat-source">2026 Iran War, Wikipedia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 2 — RHETORIC & PROPAGANDA
+══════════════════════════════════════ -->
+<div class="comic-page" id="page-2">
+
+  <div class="chapter-ribbon">
+    <span class="ch-num">CH. 2</span>
+    WORDS AS WEAPONS
+    <span class="ch-num">RHETORIC</span>
+  </div>
+
+  <div class="panel-grid grid-2-1">
+    <div class="panel yellow-bg">
+      <span class="panel-caption">THE PLAYBOOK</span>
+      <p class="panel-title">Delegitimising the Press</p>
+      <p class="panel-body">All three subjects employed the same structural move: <strong>label independent media as enemies</strong>, then fill the vacuum with executive narrative.</p>
+      <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+        <div class="quote-box">
+          <strong style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.1em; color:#2c1810;">HITLER (1933):</strong> Used the term <em data-tip="German: 'Lying Press' — used to brand independent journalism as treasonous fabrication">"Lügenpresse"</em> to characterise the independent media as a "press of lies," eventually eliminating all critical domestic voices through Gleichschaltung (synchronisation).
+          <span class="quote-attr">Source: Lying Press — Wikipedia; Holocaust Encyclopedia</span>
+        </div>
+        <div class="quote-box" style="border-left-color:var(--blue);">
+          <strong style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.1em; color:var(--blue);">TRUMP (2026):</strong> Labels critical coverage "Fake News" and "Enemy of the People." In March 2026, Secretary of Defense Hegseth explicitly chided media for reporting on military setbacks — "negatives."
+          <span class="quote-attr">Source: Harvard Political Review; New Lines Magazine, 2026</span>
+        </div>
+        <div class="quote-box" style="border-left-color:#1a7a3a;">
+          <strong style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.1em; color:#1a7a3a;">NETANYAHU (2026):</strong> Characterises legal challenges and opposition as a "Deep State" plot to overthrow the government.
+          <span class="quote-attr">Source: The American Prospect, March 2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel dark-bg" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;">
+      <span class="sfx red" style="font-size:clamp(30px,6vw,64px); text-align:center;">LÜGEN-PRESSE!</span>
+      <span class="sfx yellow" style="font-size:clamp(22px,4vw,44px); text-align:center;">FAKE NEWS!</span>
+      <span class="sfx white" style="font-size:clamp(18px,3.5vw,38px); text-align:center; -webkit-text-stroke:1px #666;">DEEP STATE!</span>
+      <p class="panel-body white" style="font-size:11px; text-align:center; margin-top:8px; opacity:0.7;">Three eras. Three languages. One structural function.</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel">
+      <span class="panel-caption">RESEARCHER COMPARISON TABLE — RHETORICAL STRATEGY</span>
+      <div class="compare-strip">
+        <div class="strip-cell strip-header">Category</div>
+        <div class="strip-cell strip-header" style="background:#2c1810;">Hitler (1933)</div>
+        <div class="strip-cell strip-header" style="background:var(--blue);">Trump (2026)</div>
+        <div class="strip-cell strip-header" style="background:#1a5c3a;">Netanyahu (2026)</div>
+
+        <div class="strip-cell strip-category">Primary Pejorative</div>
+        <div class="strip-cell strip-h-bg"><em>Lügenpresse</em></div>
+        <div class="strip-cell strip-t-bg">"Fake News," "Vermin"</div>
+        <div class="strip-cell strip-n-bg">"Deep State," "Deeply Unjust"</div>
+
+        <div class="strip-cell strip-category">Frame of Reference</div>
+        <div class="strip-cell strip-h-bg"><em>Führerprinzip</em> (Sole Savior)</div>
+        <div class="strip-cell strip-t-bg">"Only I can fix it"</div>
+        <div class="strip-cell strip-n-bg">"Strongest leader in the world"</div>
+
+        <div class="strip-cell strip-category">Scapegoat Target</div>
+        <div class="strip-cell strip-h-bg">Jews, Marxists, Treaty of Versailles</div>
+        <div class="strip-cell strip-t-bg">Undocumented immigrants, "The Left"</div>
+        <div class="strip-cell strip-n-bg">Iranian regime, Hamas, Domestic Judiciary</div>
+
+        <div class="strip-cell strip-category">Emotional Narrative</div>
+        <div class="strip-cell strip-h-bg">National Humiliation / Redemption</div>
+        <div class="strip-cell strip-t-bg">Nostalgia / Loss of Greatness</div>
+        <div class="strip-cell strip-n-bg">Fateful campaign for existence</div>
+      </div>
+      <p class="footnote">Source: Comparative Leader Analysis, March 2026; Harvard Political Review; The Globalist</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-2col" style="margin-top:0;">
+    <div class="panel red-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">DEHUMANISATION LANGUAGE</span>
+      <p class="panel-title" style="font-size:clamp(16px,2.5vw,24px);">Words That Precede Violence</p>
+      <p class="panel-body">Researchers note dehumanising language as a <strong>recorded precursor</strong> to expanded state violence:</p>
+      <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; text-align:center;">
+        <div style="background:#2c1810; color:var(--yellow); padding:8px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em;">"Parasites"<br>"Bacteria"<br><span style="color:#aaa; font-weight:400;">Hitler on Jews</span></div>
+        <div style="background:var(--blue); color:white; padding:8px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em;">"Vermin"<br>"Animals"<br><span style="color:#aac; font-weight:400;">Trump on opponents &amp; migrants</span></div>
+        <div style="background:#1a5c3a; color:white; padding:8px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.08em;">"Extremely<br>Evil" regime<br><span style="color:#aaa; font-weight:400;">Netanyahu on Iran</span></div>
+      </div>
+      <p class="footnote">Sources: Harvard Political Review; Times of India, Mar 2026; University of Sheffield</p>
+    </div>
+    <div class="panel blue-bg">
+      <span class="panel-caption" style="background:var(--blue); color:white;">CULT OF PERSONALITY</span>
+      <p class="panel-title" style="font-size:clamp(16px,2.5vw,24px);">The Mass Rally as Performance</p>
+      <p class="panel-body">Observers describe Hitler and Trump as <strong>"political performance artists."</strong> The rally spectacle — Nuremberg or MAGA — bypasses policy debate to demand allegiance. Criticism becomes disloyalty.</p>
+      <div class="quote-box" style="margin-top:10px; border-left-color:var(--blue);">
+        Netanyahu's March 2026 rhetoric turned increasingly messianic: Israel will "reach the kingdom" and make it to <strong>"the Messiah's return"</strong> — leveraging evangelical and Haredi bases for theological mandate.
+        <span class="quote-attr">Source: Middle East Eye, March 2026</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 3 — INSTITUTIONAL EROSION
+══════════════════════════════════════ -->
+<div class="comic-page" id="page-3">
+
+  <div class="chapter-ribbon">
+    <span class="ch-num">CH. 3</span>
+    DISMANTLING THE GUARDRAILS
+    <span class="ch-num">INSTITUTIONS</span>
+  </div>
+
+  <div class="panel-grid grid-1col">
+    <div class="panel dark-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">KEY FINDING</span>
+      <p class="panel-title yellow" style="font-size:clamp(20px,3.5vw,36px);">The Primary Indicator of Transition to Unconstrained Power</p>
+      <p class="panel-body white">The researchers identify the <strong style="color:var(--yellow);">active subversion of judicial independence and the civil service</strong> as the most critical structural similarity — the clearest signal that an executive is moving from constrained to unconstrained rule.</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-3col" style="margin-top:0;">
+    <div class="panel" style="background:#2c1810; color:var(--paper);">
+      <span class="panel-caption" style="background:#4a2010; color:var(--yellow);">GERMANY — 1933</span>
+      <div class="sfx yellow" style="font-size:clamp(22px,4vw,40px);">THE ENABLING ACT</div>
+      <p class="panel-body" style="color:#d4b898;">Passed March 23, 1933. Granted the cabinet power to bypass the Reichstag and the President to legislate. The deliberative legislature was effectively abolished in a single vote.</p>
+      <div style="margin-top:8px; background:var(--red); color:white; padding:8px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;">Judiciary: "Synchronized" — all critical courts neutralised</div>
+      <p class="footnote" style="color:#888;">Source: Enabling Act of 1933 — Wikipedia</p>
+    </div>
+    <div class="panel blue-bg">
+      <span class="panel-caption" style="background:var(--blue); color:white;">USA — 2025–2026</span>
+      <div class="sfx" style="font-size:clamp(18px,3.5vw,34px); color:var(--blue);">SCHEDULE F</div>
+      <p class="panel-body">Reclassifies tens of thousands of career civil servants as "at-will" employees — allowing arbitrary removal and replacement with loyalists. Officially renamed "Schedule Policy/Career."</p>
+      <div class="quote-box" style="margin-top:8px; border-left-color:var(--blue);">
+        In March 2026, Trump attacked the Supreme Court after it struck down tariffs in <em>Learning Resources, Inc. v. Trump</em> — calling Barrett and Gorsuch "unpatriotic" and stating they "should be ashamed."
+        <span class="quote-attr">Source: SCOTUSblog, March 2026</span>
+      </div>
+      <p class="footnote">Sources: NTEU; Democracy Forward; Government Executive, 2025</p>
+    </div>
+    <div class="panel" style="background:#e8f4ec;">
+      <span class="panel-caption" style="background:#1a5c3a; color:white;">ISRAEL — 2022–2026</span>
+      <div class="sfx" style="font-size:clamp(18px,3.5vw,34px); color:#1a5c3a;">JUDICIAL OVERHAUL</div>
+      <p class="panel-body">Designed to cancel the Supreme Court's power of legislative review and grant the ruling coalition a majority in judicial appointments.</p>
+      <div class="stat-box" style="margin-top:8px;">
+        <span class="stat-num" style="font-size:clamp(28px,4vw,42px);">150</span>
+        <span class="stat-label">Judgeships left unfilled (15% of national total) — Justice Minister Levin refuses to convene appointments committee</span>
+        <span class="stat-source">Source: The American Prospect, March 2026; CIE, January 2026</span>
+      </div>
+      <p class="panel-body" style="margin-top:8px; font-size:12px;">Linked to Netanyahu's personal legal survival — coalition advancing legislation to <strong>retroactively decriminalise</strong> fraud and breach of trust.</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel paper2-bg">
+      <span class="panel-caption">INSTITUTIONAL SUBVERSION — COMPARATIVE TABLE</span>
+      <table class="comic-table">
+        <thead>
+          <tr>
+            <th>Mechanism</th>
+            <th style="background:#2c1810;">Hitler (1933)</th>
+            <th style="background:var(--blue);">Trump (2026)</th>
+            <th style="background:#1a5c3a;">Netanyahu (2026)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="hl">Judiciary</td>
+            <td class="strip-h-bg">Bypassed via Enabling Act; courts "synchronised"</td>
+            <td class="strip-t-bg">Attacks individual justices; ignores court orders</td>
+            <td class="strip-n-bg">Judicial Overhaul; blocks appointments; ignores AG</td>
+          </tr>
+          <tr>
+            <td class="hl">Civil Service</td>
+            <td class="strip-h-bg"><em>Gleichschaltung</em> — total synchronisation</td>
+            <td class="strip-t-bg">Schedule F / Schedule Policy-Career</td>
+            <td class="strip-n-bg">Focus on judicial capture (civil service less targeted)</td>
+          </tr>
+          <tr>
+            <td class="hl">Legislature</td>
+            <td class="strip-h-bg">Effectively abolished as deliberative body</td>
+            <td class="strip-t-bg">Governs by executive order and "faux-emergencies"</td>
+            <td class="strip-n-bg">Uses majority to advance bills retroactively decriminalising fraud</td>
+          </tr>
+          <tr>
+            <td class="hl">Succession / Term</td>
+            <td class="strip-h-bg">Assumed Presidency after Hindenburg's death</td>
+            <td class="strip-t-bg">Non-consecutive second term; first convicted felon elected</td>
+            <td class="strip-n-bg">Longest-serving PM; seeks to delay / control next election</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footnote">Sources: Enabling Act — Wikipedia; NTEU / Democracy Forward; The American Prospect 2026; Ballotpedia</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 4 — WAR AS POLITICAL TOOL
+══════════════════════════════════════ -->
+<div class="comic-page" id="page-4">
+
+  <div class="chapter-ribbon">
+    <span class="ch-num">CH. 4</span>
+    WAG THE DOG
+    <span class="ch-num">WAR & POLITICS</span>
+  </div>
+
+  <div class="panel-grid grid-2col">
+    <div class="panel dark-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">THE CORE THESIS</span>
+      <p class="panel-title yellow" style="font-size:clamp(18px,3vw,30px);">War as Shield Against Accountability</p>
+      <p class="panel-body white">Researchers argue the 2026 Iran offensive is <strong style="color:var(--yellow);">intrinsically linked</strong> to the domestic legal and political crises of both Trump and Netanyahu — a "wag the dog" providing a national emergency narrative that suspends normal accountability.</p>
+      <div style="margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div class="stat-box" style="background:var(--red);">
+          <span class="stat-num" style="color:var(--yellow); font-size:clamp(16px,2.5vw,28px);">Cases 1000, 2000 &amp; 4000</span>
+          <span class="stat-label">Netanyahu corruption charges: bribery, fraud, breach of trust</span>
+          <span class="stat-source">Source: The American Prospect, 2026</span>
+        </div>
+        <div class="stat-box" style="background:var(--blue);">
+          <span class="stat-num" style="color:var(--yellow); font-size:clamp(16px,2.5vw,28px);">39.7–44.3%</span>
+          <span class="stat-label">Trump job approval rating, March 2026 (pre-war boost)</span>
+          <span class="stat-source">Source: Washington Post, March 2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel yellow-bg">
+      <span class="panel-caption">NETANYAHU — TRIAL &amp; WAR</span>
+      <p class="panel-title" style="font-size:clamp(18px,3vw,28px);">The "War of Redemption"</p>
+      <p class="panel-body">The war delivered several direct legal benefits for Netanyahu's defense:</p>
+      <div style="display:flex; flex-direction:column; gap:7px; margin-top:10px;">
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <div style="background:var(--red); color:white; padding:4px 8px; font-family:'Bangers',cursive; font-size:16px; flex-shrink:0;">1</div>
+          <p class="panel-body"><strong>Procedural Delays</strong> — war footing used to postpone trial, citing prohibition of non-essential public gatherings and "security consultations."</p>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <div style="background:var(--red); color:white; padding:4px 8px; font-family:'Bangers',cursive; font-size:16px; flex-shrink:0;">2</div>
+          <p class="panel-body"><strong>Decriminalisation Legislation</strong> — coalition members advanced bills to <strong>retroactively</strong> cancel the majority of his charges.</p>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <div style="background:var(--red); color:white; padding:4px 8px; font-family:'Bangers',cursive; font-size:16px; flex-shrink:0;">3</div>
+          <p class="panel-body"><strong>Electoral Leveraging</strong> — "victory" in Operation Lion's Roar boosting poll numbers ahead of Oct 2026 elections; analysts predict he may move vote to June.</p>
+        </div>
+      </div>
+      <p class="footnote">Source: The American Prospect, March 2026; Washington Post, March 2026</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel red-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">PRETEXT COMPARISON — STATED GOALS VS. ANALYSED MOTIVATIONS</span>
+      <table class="comic-table">
+        <thead>
+          <tr><th>Leader</th><th>Stated Operational Goal</th><th>Analysed Political Motivation (per researchers)</th><th>Pre-emptive Trigger Used</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="hl" style="background:#2c1810; color:var(--yellow);">Hitler</td>
+            <td>"Remedy the distress of People and Reich"</td>
+            <td class="red-cell">Totalitarian consolidation; elimination of opposition</td>
+            <td>Reichstag Fire — declared emergency</td>
+          </tr>
+          <tr>
+            <td class="hl" style="background:var(--blue); color:white;">Trump</td>
+            <td>Ward off "imminent" Iranian threat; "Operation Epic Fury"</td>
+            <td class="red-cell">Distract from Epstein files; boost 2026 midterm standing</td>
+            <td>"Clear evidence of peril" / "last window of opportunity"</td>
+          </tr>
+          <tr>
+            <td class="hl" style="background:#1a5c3a; color:white;">Netanyahu</td>
+            <td>"Ensure the eternity of Israel"; stop nuclear threat</td>
+            <td class="red-cell">Stay out of jail; lift falling poll numbers</td>
+            <td>Iran "5–10 years" from ICBM per expert testimony (disputed)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footnote">Sources: Enabling Act — Wikipedia; Duke Law / Chatham House, 2026; The American Prospect / JURIST, 2026</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-3col" style="margin-top:0;">
+    <div class="panel">
+      <div class="stat-box">
+        <span class="stat-num">15</span>
+        <span class="stat-label">US military deaths, Operation Epic Fury (as of Mar 13)</span>
+        <span class="stat-source">2026 Iran War — Wikipedia</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="stat-box" style="background:var(--red);">
+        <span class="stat-num" style="color:var(--yellow);">17</span>
+        <span class="stat-label">Israeli civilian deaths; 2,975 injured (as of Mar 13)</span>
+        <span class="stat-source">2026 Iran War — Wikipedia</span>
+      </div>
+    </div>
+    <div class="panel dark-bg">
+      <div class="stat-box" style="background:var(--ink); border-color:var(--yellow);">
+        <span class="stat-num" style="color:var(--yellow);">10,000+</span>
+        <span class="stat-label" style="color:var(--paper);">Total Iranian casualties killed/wounded (US/Israeli estimate)</span>
+        <span class="stat-source" style="color:#888;">2026 Iran War — Wikipedia</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE 5 — INTERNATIONAL LAW & CONCLUSIONS
+══════════════════════════════════════ -->
+<div class="comic-page" id="page-5">
+
+  <div class="chapter-ribbon">
+    <span class="ch-num">CH. 5</span>
+    LAW OF THE JUNGLE
+    <span class="ch-num">CONCLUSIONS</span>
+  </div>
+
+  <div class="panel-grid grid-2col">
+    <div class="panel yellow-bg">
+      <span class="panel-caption">INTERNATIONAL LAW — NON-COMPLIANCE</span>
+      <p class="panel-title" style="font-size:clamp(16px,2.5vw,26px);">Defiance of the ICC &amp; ICJ</p>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+        <div class="quote-box">
+          The ICC issued arrest warrants for <strong>Netanyahu and Gallant</strong> for war crimes in Gaza in 2024–2025. Trump responded by signing an executive order imposing <strong>sanctions on ICC officials</strong> — calling the warrants "illegitimate and baseless."
+          <span class="quote-attr">Source: AJC / ASIL, February 2025</span>
+        </div>
+        <div class="quote-box" style="border-left-color:var(--blue);">
+          <strong>Hungary</strong> withdrew from the ICC in 2025 after hosting Netanyahu. The US has consistently argued that civilian casualties — "even if widespread" — do not constitute genocidal intent in ICJ proceedings brought by South Africa.
+          <span class="quote-attr">Source: Parliamentarians for Global Action; Times of Israel, 2025</span>
+        </div>
+        <div class="quote-box" style="border-left-color:#1a5c3a;">
+          Trump's foreign policy included threats against <strong>Greenland</strong>, "unlawful rendition" of Maduro from Venezuela, and threats of trade embargo on <strong>Spain</strong> for refusing to host US forces for the Iran strikes.
+          <span class="quote-attr">Source: Chatham House, March 2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel dark-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">THE FEEDBACK LOOP</span>
+      <p class="panel-title yellow" style="font-size:clamp(16px,2.5vw,26px);">Authoritarianism's Self-Reinforcing Cycle</p>
+      <p class="panel-body white" style="margin-bottom:12px;">Researchers identify a direct correlation: <strong style="color:var(--yellow);">the more severe the legal challenge, the more intense the "otherisation" and external aggression.</strong></p>
+      <div style="display:flex; flex-direction:column; gap:0; border:3px solid var(--yellow);">
+        <div style="background:var(--red); color:white; padding:8px 12px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; text-align:center; letter-spacing:0.1em; border-bottom:2px solid var(--yellow);">JUDICIARY ATTEMPTS ACCOUNTABILITY</div>
+        <div style="padding:6px 12px; text-align:center; font-family:'Bangers',cursive; font-size:24px; color:var(--yellow);">↓</div>
+        <div style="background:#2c2c00; color:var(--yellow); padding:8px 12px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; text-align:center; letter-spacing:0.1em; border-bottom:2px solid var(--yellow);">EXECUTIVE ESCALATES DELEGITIMISATION</div>
+        <div style="padding:6px 12px; text-align:center; font-family:'Bangers',cursive; font-size:24px; color:var(--yellow);">↓</div>
+        <div style="background:#1a2c4a; color:white; padding:8px 12px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; text-align:center; letter-spacing:0.1em; border-bottom:2px solid var(--yellow);">EXTERNAL CONFLICT LAUNCHED / ESCALATED</div>
+        <div style="padding:6px 12px; text-align:center; font-family:'Bangers',cursive; font-size:24px; color:var(--yellow);">↓</div>
+        <div style="background:#1a4a1a; color:white; padding:8px 12px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; text-align:center; letter-spacing:0.1em;">WARTIME EMERGENCY SUSPENDS NORMAL ACCOUNTABILITY — LOOP RESTARTS</div>
+      </div>
+      <p class="footnote" style="color:#888; margin-top:8px;">Source: Comparative Leader Analysis, March 2026 — analytical conclusion</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel paper2-bg">
+      <span class="panel-caption">EXECUTIVE COMPARISON MATRIX — FULL DATA</span>
+      <table class="comic-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th style="background:#2c1810;">Hitler (1933–1945)</th>
+            <th style="background:var(--blue);">Trump (2025–2026)</th>
+            <th style="background:#1a5c3a;">Netanyahu (2022–2026)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="hl">Legal Constraint</td><td>Enabling Act (removed)</td><td>Schedule F (circumvented)</td><td>Judicial Overhaul (in progress)</td></tr>
+          <tr><td class="hl">Media Constraint</td><td>Gleichschaltung (removed)</td><td>"Fake News" (fragmented)</td><td>"Deep State" narrative</td></tr>
+          <tr><td class="hl">International Law</td><td>Withdrew from League of Nations</td><td>Sanctioned ICC</td><td>Ignores ICC warrants</td></tr>
+          <tr><td class="hl">Primary Conflict</td><td>WWII (Expansionist)</td><td>2026 Iran War (Preventative)</td><td>2026 Iran War (Redemptive)</td></tr>
+          <tr><td class="hl">Base Support</td><td>Völkisch / Racialized</td><td>MAGA / Ethnonationalist</td><td>Religious-Nationalist / Haredi</td></tr>
+          <tr><td class="hl">Political Style</td><td>Performance / Spectacle</td><td>Performance / Spectacle</td><td>Strategic / Indispensable Leader</td></tr>
+        </tbody>
+      </table>
+      <p class="footnote">Sources: Wikipedia; NTEU; The American Prospect; Cult of Personality — Wikipedia; University of Sheffield</p>
+    </div>
+  </div>
+
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel dark-bg">
+      <span class="panel-caption" style="background:var(--red); color:white;">RESEARCHER'S CONCLUSION — MARCH 2026</span>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:8px;">
+        <div style="border-left:4px solid var(--red); padding-left:12px;">
+          <p class="panel-caption" style="background:transparent; color:var(--yellow); padding:0 0 4px 0;">Finding 1</p>
+          <p class="panel-body white"><strong style="color:var(--yellow);">Personal Immunity as State Interest</strong> — Legal liabilities (Trump's felony convictions, Netanyahu's corruption trial) are reframed as attacks on the state itself, justifying national resources for personal defense.</p>
+        </div>
+        <div style="border-left:4px solid var(--yellow); padding-left:12px;">
+          <p class="panel-caption" style="background:transparent; color:var(--yellow); padding:0 0 4px 0;">Finding 2</p>
+          <p class="panel-body white"><strong style="color:var(--yellow);">Narrative Monopolisation</strong> — Systematic discrediting of independent information creates a vacuum filled by executive spectacle and "alternative facts."</p>
+        </div>
+        <div style="border-left:4px solid var(--blue2); padding-left:12px;">
+          <p class="panel-caption" style="background:transparent; color:var(--yellow); padding:0 0 4px 0;">Finding 3</p>
+          <p class="panel-body white"><strong style="color:var(--yellow);">Kinetic Diversion</strong> — Transition from domestic political vulnerability to wartime leadership provides temporary but powerful suspension of the democratic and legal standards of the post-1945 order.</p>
+        </div>
+      </div>
+      <div style="margin-top:16px; border:2px dashed rgba(255,255,255,0.3); padding:12px;">
+        <p class="panel-body white" style="font-size:clamp(11px,1.5vw,13px); font-style:italic; color:#ccc;">
+          "The alien observer concludes that the entity known as 'liberal democracy' is in a state of advanced degradation in both the United States and Israel as of March 2026... The future trajectory suggests a continued descent into a 'law of the jungle' where institutional rules are replaced by the singular will of the executive."
+        </p>
+        <span style="font-family:'Oswald',sans-serif; font-size:11px; color:var(--red); letter-spacing:0.1em; display:block; margin-top:6px;">— Comparative Leader Analysis, March 2026 (cited sources include: El País, Guardian, Chatham House, CFR)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <div class="panel-grid grid-1col" style="margin-top:0;">
+    <div class="panel" style="background:#f9f5e8;">
+      <span class="panel-caption">KEY SOURCES CITED IN THIS ANALYSIS</span>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:4px; margin-top:6px; font-family:'Courier Prime',monospace; font-size:10px; color:#555; line-height:1.6;">
+        <div>• 2026 Iran War — Wikipedia</div>
+        <div>• ISW Evening Special Report, Mar 13, 2026</div>
+        <div>• Recorded Future — Iran Conflict, Mar 2026</div>
+        <div>• Chatham House — Iran Attacks &amp; Int'l Law</div>
+        <div>• Harvard Political Review — Trump/Hitler Rhetoric</div>
+        <div>• The American Prospect — Netanyahu/Courts</div>
+        <div>• SCOTUSblog — Presidents Attack SCOTUS</div>
+        <div>• NTEU / Democracy Forward — Schedule F</div>
+        <div>• El País — "Law of the Jungle," Mar 2026</div>
+        <div>• Middle East Eye — Netanyahu/Messiah, 2026</div>
+        <div>• ASIL — Trump ICC Executive Order</div>
+        <div>• Washington Post — Trump approval / Netanyahu</div>
+        <div>• Duke Law / Chatham House — Pre-emption analysis</div>
+        <div>• University of Sheffield — Trump/Hitler Lying study</div>
+        <div>• CIE — Israel Judicial Overhaul Status, Jan 2026</div>
+        <div>• Treasury.gov — Trump Tax Cuts data</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════ -->
+<nav id="page-nav">
+  <a href="index.html" style="display:flex;align-items:center;padding:0 14px;font-family:'Bangers',cursive;font-size:14px;letter-spacing:0.1em;color:var(--yellow);text-decoration:none;border-right:2px solid rgba(255,255,255,0.2);">← Home</a>
+  <button class="nav-arrow" onclick="changePage(-1)" title="Previous">◀</button>
+
+  <div class="progress-strip" id="progStrip"></div>
+
+  <button class="nav-btn active" data-page="0" onclick="goToPage(0)">COVER</button>
+  <button class="nav-btn" data-page="1" onclick="goToPage(1)">1 · FRAMEWORK</button>
+  <button class="nav-btn" data-page="2" onclick="goToPage(2)">2 · RHETORIC</button>
+  <button class="nav-btn" data-page="3" onclick="goToPage(3)">3 · INSTITUTIONS</button>
+  <button class="nav-btn" data-page="4" onclick="goToPage(4)">4 · WAR</button>
+  <button class="nav-btn" data-page="5" onclick="goToPage(5)">5 · CONCLUSIONS</button>
+
+  <button class="nav-arrow" onclick="changePage(1)" title="Next">▶</button>
+</nav>
+
+<script>
+const TOTAL = 6; // cover + 5 pages
+let current = 0;
+
+const pages = [
+  document.getElementById('cover'),
+  document.getElementById('page-1'),
+  document.getElementById('page-2'),
+  document.getElementById('page-3'),
+  document.getElementById('page-4'),
+  document.getElementById('page-5'),
+];
+
+const navBtns = document.querySelectorAll('.nav-btn');
+const progStrip = document.getElementById('progStrip');
+
+// Build progress dots
+for (let i = 0; i < TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'prog-dot' + (i === 0 ? ' current' : '');
+  d.onclick = () => goToPage(i);
+  progStrip.appendChild(d);
+}
+
+function goToPage(n) {
+  if (n < 0 || n >= TOTAL) return;
+
+  // Hide all
+  pages.forEach((p, i) => {
+    if (i === 0) {
+      p.style.display = (i === n) ? 'flex' : 'none';
+    } else {
+      p.classList.remove('active');
+      if (i === n) p.classList.add('active');
+    }
+  });
+  if (n === 0) pages[0].style.display = 'flex';
+
+  current = n;
+
+  // Update nav buttons
+  navBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.page) === n));
+
+  // Update progress dots
+  const dots = progStrip.querySelectorAll('.prog-dot');
+  dots.forEach((d, i) => {
+    d.className = 'prog-dot';
+    if (i < n) d.classList.add('done');
+    if (i === n) d.classList.add('current');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function changePage(dir) {
+  goToPage(current + dir);
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changePage(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changePage(-1);
+});
+
+// Init — show cover
+pages.forEach((p, i) => {
+  if (i === 0) { p.style.display = 'flex'; }
+  else { p.style.display = ''; p.classList.remove('active'); }
+});
+</script>
+</body>
+</html>

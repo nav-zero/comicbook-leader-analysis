@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book 3 — The Anatomy of Power · Comparative Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f5f5f7;
+  --bg3: #e8e8ed;
+  --ink: #1d1d1f;
+  --ink2: #3a3a3c;
+  --ink3: #6e6e73;
+  --ink4: #aeaeb2;
+  --accent: #0071e3;
+  --accent2: #06c;
+  --red: #ff3b30;
+  --amber: #ff9500;
+  --green: #34c759;
+  --divider: rgba(0,0,0,0.08);
+  --card-bg: #f5f5f7;
+  --card-border: rgba(0,0,0,0.06);
+  --r: 18px;
+  --r-sm: 10px;
+  --shadow: 0 2px 20px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TYPOGRAPHY ── */
+.display { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(48px, 7vw, 88px); line-height: 1.02; letter-spacing: -0.02em; color: var(--ink); }
+.display-sm { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(28px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.015em; color: var(--ink); }
+.headline { font-size: clamp(22px, 3vw, 32px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
+.title { font-size: clamp(17px, 2vw, 22px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; color: var(--ink); }
+.body-lg { font-size: clamp(16px, 1.5vw, 19px); font-weight: 300; line-height: 1.65; color: var(--ink2); }
+.body { font-size: clamp(14px, 1.3vw, 16px); font-weight: 400; line-height: 1.6; color: var(--ink2); }
+.caption { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink3); }
+.footnote { font-size: 11px; color: var(--ink4); line-height: 1.5; }
+
+/* ── LAYOUT ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; animation: fadeIn 0.4s ease both; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+.container-wide { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+section { padding: 64px 0; }
+section + section { border-top: 1px solid var(--divider); }
+
+/* ── COVER ── */
+#cover {
+  display: block;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.cover-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--divider);
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.cover-nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+.cover-nav-meta { font-size: 12px; color: var(--ink3); font-weight: 400; }
+
+.cover-hero {
+  padding: 100px 40px 80px;
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+
+@media (max-width: 768px) { .cover-hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; } }
+
+.cover-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,113,227,0.08); color: var(--accent2);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+}
+.cover-kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+.cover-disclaimer {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(255,149,0,0.08);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 13px; color: var(--ink3); line-height: 1.55;
+}
+
+.cover-stats { display: flex; flex-direction: column; gap: 16px; }
+
+.cover-stat-card {
+  background: var(--card-bg);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  border: 1px solid var(--card-border);
+}
+
+.cover-stat-num { font-family: 'DM Serif Display', serif; font-size: 42px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+.cover-stat-label { font-size: 13px; color: var(--ink3); margin-top: 4px; line-height: 1.4; }
+.cover-stat-source { font-size: 11px; color: var(--ink4); margin-top: 6px; }
+
+.cover-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: white;
+  font-size: 15px; font-weight: 500; letter-spacing: -0.01em;
+  padding: 14px 28px; border-radius: 980px; margin-top: 32px;
+  border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.cover-cta:hover { background: var(--accent2); transform: scale(1.02); }
+
+/* ── NAV BAR ── */
+#nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--divider);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 16px;
+  height: 52px;
+  gap: 0;
+}
+
+.nav-item {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.01em;
+  color: var(--ink3); padding: 0 14px; height: 52px;
+  display: flex; align-items: center;
+  cursor: pointer; border: none; background: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.nav-item:hover { color: var(--ink); }
+.nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.nav-prev, .nav-next {
+  font-size: 13px; font-weight: 500; color: var(--accent);
+  background: none; border: none; cursor: pointer;
+  padding: 0 12px; height: 52px; display: flex; align-items: center;
+  transition: opacity 0.2s;
+}
+.nav-prev:hover, .nav-next:hover { opacity: 0.7; }
+.nav-divider { width: 1px; height: 24px; background: var(--divider); margin: 0 4px; }
+.nav-page-indicator { font-size: 11px; color: var(--ink4); padding: 0 12px; white-space: nowrap; font-weight: 400; }
+
+body { padding-bottom: 52px; }
+
+/* ── CHAPTER HEADER ── */
+.chapter-header {
+  padding: 80px 0 48px;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 0;
+}
+
+.chapter-tag { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.chapter-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: white;
+  font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--r);
+  border: 1px solid var(--card-border);
+  padding: 28px 32px;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+
+.card-white {
+  background: white;
+  border-radius: var(--r);
+  border: 1px solid var(--divider);
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+}
+
+.card-accent {
+  background: var(--accent);
+  border-radius: var(--r);
+  padding: 28px 32px;
+  color: white;
+}
+
+.card-dark {
+  background: var(--ink);
+  border-radius: var(--r);
+  padding: 28px 32px;
+  color: white;
+}
+
+/* ── GRIDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+
+@media (max-width: 860px) {
+  .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) { .container, .container-wide { padding: 0 20px; } }
+
+/* ── STAT BLOCK ── */
+.stat-block { padding: 24px 0; border-top: 1px solid var(--divider); }
+.stat-block:first-child { border-top: none; padding-top: 0; }
+.stat-big { font-family: 'DM Serif Display', serif; font-size: clamp(36px,5vw,56px); letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
+.stat-big.red { color: var(--red); }
+.stat-big.blue { color: var(--accent); }
+.stat-big.amber { color: var(--amber); }
+.stat-label { font-size: 14px; color: var(--ink3); margin-top: 6px; line-height: 1.45; }
+.stat-source { font-size: 11px; color: var(--ink4); margin-top: 4px; }
+
+/* ── COMPARISON TABLE ── */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 16px 0; }
+.comp-table th {
+  text-align: left; padding: 10px 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink3); border-bottom: 1px solid var(--divider);
+  background: var(--bg2);
+}
+.comp-table th:first-child { border-radius: var(--r-sm) 0 0 0; }
+.comp-table th:last-child { border-radius: 0 var(--r-sm) 0 0; }
+.comp-table td { padding: 10px 14px; border-bottom: 1px solid var(--divider); color: var(--ink2); vertical-align: top; line-height: 1.5; }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: rgba(0,113,227,0.02); }
+.comp-table td.label-col { font-weight: 600; color: var(--ink); font-size: 12px; letter-spacing: 0.02em; white-space: nowrap; }
+.comp-table td.h-col { background: rgba(255,59,48,0.04); }
+.comp-table td.t-col { background: rgba(0,113,227,0.04); }
+.comp-table td.n-col { background: rgba(52,199,89,0.04); }
+
+.table-wrap {
+  border-radius: var(--r);
+  border: 1px solid var(--divider);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* ── QUOTE BLOCK ── */
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding: 14px 20px;
+  background: rgba(0,113,227,0.04);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin: 12px 0;
+}
+.quote-block.red { border-left-color: var(--red); background: rgba(255,59,48,0.04); }
+.quote-block.amber { border-left-color: var(--amber); background: rgba(255,149,0,0.04); }
+.quote-block.green { border-left-color: var(--green); background: rgba(52,199,89,0.04); }
+.quote-text { font-size: 14px; color: var(--ink2); line-height: 1.6; font-style: italic; }
+.quote-attr { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink3); margin-top: 6px; text-transform: uppercase; font-style: normal; }
+
+/* ── TAG / PILL ── */
+.tag {
+  display: inline-flex; align-items: center;
+  background: var(--bg3); color: var(--ink2);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  padding: 4px 10px; border-radius: 20px; margin: 2px;
+}
+.tag.blue { background: rgba(0,113,227,0.1); color: var(--accent2); }
+.tag.red { background: rgba(255,59,48,0.1); color: var(--red); }
+.tag.amber { background: rgba(255,149,0,0.1); color: #b06000; }
+.tag.green { background: rgba(52,199,89,0.1); color: #1a7a30; }
+
+/* ── SUBJECT HEADER ── */
+.subject-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--divider);
+  border-radius: var(--r); overflow: hidden;
+  margin: 24px 0;
+  border: 1px solid var(--divider);
+}
+.subject-cell {
+  background: var(--bg);
+  padding: 20px 24px;
+  text-align: center;
+}
+.subject-cell.h { background: rgba(255,59,48,0.05); }
+.subject-cell.t { background: rgba(0,113,227,0.05); }
+.subject-cell.n { background: rgba(52,199,89,0.05); }
+.subject-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.subject-era { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+.subject-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+
+/* ── PROGRESS ── */
+.progress-row { display: flex; align-items: center; gap: 8px; }
+.prog-step {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; color: var(--ink4);
+  padding: 4px 12px; border-radius: 20px;
+  transition: all 0.2s;
+}
+.prog-step.done { color: var(--ink3); }
+.prog-step.current { color: var(--accent); background: rgba(0,113,227,0.08); }
+.prog-dot2 { width: 6px; height: 6px; border-radius: 50%; background: var(--ink4); flex-shrink: 0; }
+.prog-step.done .prog-dot2 { background: var(--ink3); }
+.prog-step.current .prog-dot2 { background: var(--accent); }
+
+/* ── LOOP DIAGRAM ── */
+.loop-diagram { display: flex; flex-direction: column; gap: 0; }
+.loop-step {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-sm);
+  font-size: 14px; color: var(--ink2); font-weight: 400; line-height: 1.4;
+}
+.loop-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: white;
+  font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.loop-arrow { text-align: center; color: var(--ink4); padding: 4px; font-size: 18px; }
+.loop-step.warn .loop-step-num { background: var(--red); }
+.loop-step.neutral .loop-step-num { background: var(--ink3); }
+
+/* ── HORIZONTAL RULE ── */
+hr { border: none; border-top: 1px solid var(--divider); margin: 40px 0; }
+
+/* ── SECTION DIVIDER ── */
+.sec-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 48px 0 32px;
+}
+.sec-divider-line { flex: 1; height: 1px; background: var(--divider); }
+.sec-divider-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink4); white-space: nowrap; }
+
+/* ── DATA ROW ── */
+.data-row {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+  padding: 16px 0; border-bottom: 1px solid var(--divider);
+}
+.data-row:last-child { border-bottom: none; }
+.data-row-label { font-size: 14px; color: var(--ink2); max-width: 380px; }
+.data-row-val { font-size: 15px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+/* ── ICON BADGE ── */
+.icon-badge {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  margin-bottom: 14px;
+}
+.icon-badge.blue { background: rgba(0,113,227,0.1); }
+.icon-badge.red { background: rgba(255,59,48,0.1); }
+.icon-badge.amber { background: rgba(255,149,0,0.1); }
+.icon-badge.green { background: rgba(52,199,89,0.1); }
+
+/* ── SOURCES PAGE ── */
+.source-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 10px; }
+.source-item {
+  font-size: 12px; color: var(--ink3); line-height: 1.5;
+  padding: 10px 14px;
+  background: var(--card-bg); border-radius: var(--r-sm);
+  border: 1px solid var(--card-border);
+}
+.source-num { font-weight: 700; color: var(--accent); margin-right: 6px; }
+
+/* ── COVER TRIPTYCH ── */
+.portrait-triptych { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 32px 0; }
+.portrait-card {
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  box-shadow: var(--shadow);
+  padding: 28px 20px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-align: center; background: var(--card-bg);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.portrait-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.portrait-avatar {
+  width: 72px; height: 72px; border-radius: 50%; margin-bottom: 4px;
+  display: flex; align-items: center; justify-content: center; font-size: 28px;
+}
+.portrait-name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+.portrait-role { font-size: 12px; color: var(--ink3); line-height: 1.4; }
+.portrait-era { font-size: 11px; color: var(--ink4); margin-top: 4px; }
+
+/* ── RESPONSIVE NAV ── */
+@media (max-width: 700px) {
+  .nav-item { font-size: 10px; padding: 0 8px; }
+  .nav-page-indicator { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     COVER / PAGE 0
+════════════════════════════════════ -->
+<div class="page active" id="page-0">
+  <nav class="cover-nav">
+    <div class="cover-nav-logo">Book 3 — Anatomy of Power</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="index.html" style="font-size:13px;font-weight:500;color:var(--accent);background:none;border:1px solid rgba(0,113,227,0.3);border-radius:980px;padding:6px 16px;text-decoration:none;">← Home</a>
+      <button onclick="changePage(-1)" style="font-size:13px;font-weight:500;color:var(--accent);background:none;border:1px solid rgba(0,113,227,0.3);border-radius:980px;padding:6px 16px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(0,113,227,0.07)'" onmouseout="this.style.background='none'">← Back</button>
+      <button onclick="changePage(1)" style="font-size:13px;font-weight:500;color:white;background:var(--accent);border:none;border-radius:980px;padding:6px 16px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">Next →</button>
+    </div>
+  </nav>
+
+  <div class="cover-hero">
+    <div>
+      <div class="cover-kicker">Academic Analysis · March 2026</div>
+      <div class="display">The<br><em>Anatomy</em><br>of Power</div>
+      <p class="body-lg" style="margin-top:24px; max-width:520px;">A comparative longitudinal study of political consolidation, institutional erosion, and executive kinetic action across three leaders: Hitler (1933), Trump (2025–2026), and Netanyahu (2022–2026).</p>
+      <div class="cover-disclaimer">
+        <strong style="color:#b06000;">Editorial note:</strong> This presentation adapts a March 2026 academic analysis. Comparisons — particularly the Hitler parallels — are those of the cited researchers and remain contested interpretations, not established consensus. All data is attributed to original sources.
+      </div>
+      <button class="cover-cta" onclick="goToPage(1)">Begin Reading →</button>
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat-card">
+        <div class="cover-stat-num">900+</div>
+        <div class="cover-stat-label">Strikes in first 12 hours of Operation Epic Fury / Lion's Roar (Feb 28, 2026)</div>
+        <div class="cover-stat-source">ISW Special Report, Mar 13 2026</div>
+      </div>
+      <div class="cover-stat-card">
+        <div class="cover-stat-num" style="color:var(--red);">10,000+</div>
+        <div class="cover-stat-label">Total Iranian casualties killed or wounded as of Mar 13, 2026 (US/Israeli estimate)</div>
+        <div class="cover-stat-source">2026 Iran War — Wikipedia</div>
+      </div>
+      <div class="cover-stat-card">
+        <div class="cover-stat-num" style="color:var(--accent);">80%</div>
+        <div class="cover-stat-label">Claimed reduction in Iranian offensive capability (US/Israeli estimate)</div>
+        <div class="cover-stat-source">ISW / Flashpoint, Mar 2026</div>
+      </div>
+      <div class="portrait-triptych" style="margin:0;">
+        <div class="portrait-card">
+          <div class="portrait-avatar" style="background:rgba(255,59,48,0.1);">🇩🇪</div>
+          <div class="portrait-name">Hitler</div>
+          <div class="portrait-role">German Chancellor / Führer</div>
+          <div class="portrait-era">1933 – 1945</div>
+        </div>
+        <div class="portrait-card">
+          <div class="portrait-avatar" style="background:rgba(0,113,227,0.1);">🇺🇸</div>
+          <div class="portrait-name">Trump</div>
+          <div class="portrait-role">47th U.S. President</div>
+          <div class="portrait-era">2025 – 2026</div>
+        </div>
+        <div class="portrait-card">
+          <div class="portrait-avatar" style="background:rgba(52,199,89,0.1);">🇮🇱</div>
+          <div class="portrait-name">Netanyahu</div>
+          <div class="portrait-role">Israeli Prime Minister</div>
+          <div class="portrait-era">2022 – 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 1 — CONFLICT DATA
+════════════════════════════════════ -->
+<div class="page" id="page-1">
+  <div class="container" style="padding-top:0;">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">1</div>
+        <span class="caption">Chapter One</span>
+      </div>
+      <div class="display-sm">The Kinetic Context</div>
+      <p class="body-lg" style="margin-top:12px; max-width:600px;">Operation Epic Fury (US) and Operation Lion's Roar (Israel) launched Feb 28, 2026. By March 13 — 13 days in — researchers documented the following data points.</p>
+    </div>
+
+    <section>
+      <div class="grid-4">
+        <div class="card">
+          <div class="stat-big red">4–5K</div>
+          <div class="stat-label">Iranian military fatalities (US/Israeli estimate)</div>
+          <div class="stat-source">2026 Iran War — Wikipedia</div>
+        </div>
+        <div class="card">
+          <div class="stat-big red">10,000+</div>
+          <div class="stat-label">Total Iranian casualties (killed / wounded)</div>
+          <div class="stat-source">2026 Iran War — Wikipedia</div>
+        </div>
+        <div class="card">
+          <div class="stat-big blue">160–190</div>
+          <div class="stat-label">Ballistic missile launchers confirmed destroyed; 200 disabled</div>
+          <div class="stat-source">ISW Special Report, Mar 13 2026</div>
+        </div>
+        <div class="card">
+          <div class="stat-big amber">80%</div>
+          <div class="stat-label">Claimed reduction in total Iranian offensive capability</div>
+          <div class="stat-source">ISW / Flashpoint, Mar 2026</div>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-top:20px;">
+        <div class="card">
+          <div class="stat-big">15</div>
+          <div class="stat-label">US military fatalities; 200 wounded</div>
+          <div class="stat-source">2026 Iran War — Wikipedia</div>
+        </div>
+        <div class="card">
+          <div class="stat-big">17</div>
+          <div class="stat-label">Israeli civilian deaths; 2,975 injured</div>
+          <div class="stat-source">2026 Iran War — Wikipedia</div>
+        </div>
+        <div class="card">
+          <div class="stat-big red">✓</div>
+          <div class="stat-label">Assassination of Supreme Leader Ali Khamenei confirmed</div>
+          <div class="stat-source">2026 Iran War — Wikipedia</div>
+        </div>
+        <div class="card">
+          <div class="stat-big amber">900+</div>
+          <div class="stat-label">Strikes executed in first 12 hours of the operation</div>
+          <div class="stat-source">ISW Special Report, Mar 13 2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:20px;">Economic &amp; Infrastructure Disruption</div>
+      <div class="grid-2">
+        <div class="card-white">
+          <div class="caption" style="margin-bottom:12px;">Collateral Regional Impact</div>
+          <div class="data-row">
+            <div class="data-row-label">Collapse of Iraq's national power grid as a result of strike operations</div>
+            <div class="data-row-val"><span class="tag red">Confirmed</span></div>
+          </div>
+          <div class="data-row">
+            <div class="data-row-label">Strait of Hormuz incidents — disruption to global shipping lanes</div>
+            <div class="data-row-val"><span class="tag amber">Reported</span></div>
+          </div>
+          <div class="data-row">
+            <div class="data-row-label">Law Enforcement Command (LEC) units targeted in Gharchak, Tehran Province</div>
+            <div class="data-row-val"><span class="tag red">Targeted</span></div>
+          </div>
+          <div class="data-row">
+            <div class="data-row-label">Shiraz Electronics Industries (SEI) struck — defence electronics manufacturing</div>
+            <div class="data-row-val"><span class="tag red">Targeted</span></div>
+          </div>
+          <div class="footnote" style="margin-top:12px;">Sources: ISW Special Report Mar 13 2026; 2026 Iran War — Wikipedia; Flashpoint</div>
+        </div>
+        <div class="card-white">
+          <div class="caption" style="margin-bottom:12px;">Third-Order Analysis: Iranian Domestic Population</div>
+          <p class="body" style="margin-bottom:12px;">Researchers note that while the stated goal is "liberation" of the Iranian people, the targeting of social and economic infrastructure — including traffic and economic security police units — is more likely to:</p>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div class="quote-block amber">
+              <div class="quote-text">Lead to "chaos, civil war," and a permanently unstable region rather than a democratic transition.</div>
+              <div class="quote-attr">Comparative Leader Analysis, 2026 — analytical conclusion</div>
+            </div>
+            <div class="quote-block">
+              <div class="quote-text">Netanyahu claimed "near-total dominance over Iranian airspace" and linked the campaign to "changing the face of the Middle East" — a promise made after October 7, 2023.</div>
+              <div class="quote-attr">Times of India / gov.il, March 2026</div>
+            </div>
+          </div>
+          <p class="footnote" style="margin-top:12px;">Source: The Guardian briefing, March 12, 2026; RUSI analysis, March 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:20px;">Theoretical Framework</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-badge blue">⚙️</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">Populist Mobilisation</div>
+          <p class="body">Using mass movements to bypass traditional checks and balances, creating a direct leader-to-people channel that circumvents institutional friction.</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge red">🏛️</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">Institutional Erosion</div>
+          <p class="body">Systematic neutralisation of judiciary, civil service, and legislative independence — transforming constrained executives into unconstrained ones.</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge amber">🔥</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">External Conflict as Shield</div>
+          <p class="body">Deployment of military action to suspend domestic legal and political accountability, reframing personal legal crises as national security imperatives.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 2 — RHETORIC
+════════════════════════════════════ -->
+<div class="page" id="page-2">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">2</div>
+        <span class="caption">Chapter Two</span>
+      </div>
+      <div class="display-sm">Rhetoric &amp; Propaganda</div>
+      <p class="body-lg" style="margin-top:12px; max-width:600px;">All three subjects employed a morphologically identical set of linguistic tools to restructure the perception of reality for their respective constituencies.</p>
+    </div>
+
+    <section>
+      <div class="title" style="margin-bottom:8px;">Delegitimising Information Channels</div>
+      <p class="body" style="margin-bottom:20px; max-width:640px;">The mechanism involves making truth relative to the side one supports — until no independent information source remains credible.</p>
+
+      <div class="grid-3">
+        <div class="card" style="border-top:3px solid var(--red);">
+          <div class="caption" style="margin-bottom:10px; color:var(--red);">Hitler · 1933</div>
+          <div class="title" style="font-size:18px; margin-bottom:10px;"><em>Lügenpresse</em></div>
+          <p class="body">Characterised independent media as a "press of lies." Used to "synchronise" (<em>Gleichschalten</em>) the German press until no critical domestic voices remained.</p>
+          <div class="quote-block red" style="margin-top:14px;">
+            <div class="quote-text">The term predates Hitler but became the rhetorical anchor for eliminating press freedom entirely by 1934.</div>
+            <div class="quote-attr">Lying Press — Wikipedia; Holocaust Encyclopedia</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);">
+          <div class="caption" style="margin-bottom:10px; color:var(--accent);">Trump · 2025–2026</div>
+          <div class="title" style="font-size:18px; margin-bottom:10px;">"Fake News"</div>
+          <p class="body">Consistently employs "Fake News" and "Enemy of the People." In March 2026, Secretary of Defense Pete Hegseth explicitly chided media for reporting on military "negatives" — drone penetrations and casualties.</p>
+          <div class="quote-block" style="margin-top:14px;">
+            <div class="quote-text">Echoes of Iraq: reporters blamed for "unhelpful" coverage of the Iran campaign — a structural repeat of 2003 embed management.</div>
+            <div class="quote-attr">New Lines Magazine, March 2026</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <div class="caption" style="margin-bottom:10px; color:#1a7a30;">Netanyahu · 2022–2026</div>
+          <div class="title" style="font-size:18px; margin-bottom:10px;">"Deep State"</div>
+          <p class="body">Characterises legal challenges and political opposition as a "Deep State" plot designed to overthrow a democratically elected government.</p>
+          <div class="quote-block green" style="margin-top:14px;">
+            <div class="quote-text">Frames his corruption trials as an "antisemitic" attack on the Jewish state rather than an accountability process.</div>
+            <div class="quote-attr">The American Prospect, March 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:16px;">Comparative Rhetoric Matrix</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th style="width:180px;">Category</th>
+              <th style="background:rgba(255,59,48,0.06);">Hitler (1933)</th>
+              <th style="background:rgba(0,113,227,0.06);">Trump (2026)</th>
+              <th style="background:rgba(52,199,89,0.06);">Netanyahu (2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="label-col">Primary Pejorative</td><td class="h-col"><em>Lügenpresse</em></td><td class="t-col">"Fake News," "Enemy of the People"</td><td class="n-col">"Deep State," "Deeply Unjust"</td></tr>
+            <tr><td class="label-col">Frame of Reference</td><td class="h-col"><em>Führerprinzip</em> — Sole Saviour</td><td class="t-col">"Only I can fix it"</td><td class="n-col">"Strongest leader in the world"</td></tr>
+            <tr><td class="label-col">Scapegoat Target</td><td class="h-col">Jews, Marxists, Treaty of Versailles</td><td class="t-col">Undocumented immigrants, "The Left," political opponents</td><td class="n-col">Iranian regime, Hamas, domestic judiciary</td></tr>
+            <tr><td class="label-col">Emotional Narrative</td><td class="h-col">National Humiliation / Redemption</td><td class="t-col">Nostalgia / "Loss of Greatness"</td><td class="n-col">Fateful campaign for national existence</td></tr>
+            <tr><td class="label-col">Dehumanising Language</td><td class="h-col">"Parasites," "bacteria" (re: Jews)</td><td class="t-col">"Vermin" (opponents), "animals" (migrants)</td><td class="n-col">"Extremely evil" Iranian regime; mission to "liberate"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footnote" style="margin-top:8px; padding:0 4px;">Sources: Harvard Political Review; The Globalist; University of Sheffield Trump/Hitler Comparative Study; gov.il March 2026</p>
+    </section>
+
+    <section>
+      <div class="grid-2">
+        <div>
+          <div class="title" style="margin-bottom:16px;">Cult of Personality &amp; The Mass Rally</div>
+          <p class="body" style="margin-bottom:14px;">Observers describe Hitler and Trump as "political performance artists." The spectacle of the mass rally — whether Nuremberg or a MAGA event — serves as the primary mechanism for bypassing traditional political discourse. Rallies are less about policy than about allegiance; criticism of the leader becomes disloyalty.</p>
+          <div class="quote-block" style="margin-bottom:12px;">
+            <div class="quote-text">Netanyahu similarly maintains a "personality cult" centred on his role as the indispensable protector of the Jewish people against an "antisemitic regime" in Iran.</div>
+            <div class="quote-attr">Cult of Personality — Wikipedia; Washington Post, March 2026</div>
+          </div>
+          <div class="quote-block amber">
+            <div class="quote-text">Netanyahu's March 2026 rhetoric took an increasingly messianic tone: Israel will "reach the kingdom" and make it to "the Messiah's return" — leveraging evangelical and Haredi bases for a theological mandate.</div>
+            <div class="quote-attr">Middle East Eye, March 2026</div>
+          </div>
+        </div>
+        <div>
+          <div class="title" style="margin-bottom:16px;">Religion, Messianism &amp; the Base</div>
+          <div class="card" style="margin-bottom:16px;">
+            <div class="caption" style="margin-bottom:8px;">Base Composition</div>
+            <div class="data-row" style="padding:10px 0;">
+              <div class="data-row-label">Hitler</div>
+              <div><span class="tag">Völkisch / Racialized</span> <span class="tag amber">Nationalist</span></div>
+            </div>
+            <div class="data-row" style="padding:10px 0;">
+              <div class="data-row-label">Trump</div>
+              <div><span class="tag blue">MAGA</span> <span class="tag">Ethnonationalist</span> <span class="tag amber">Evangelical</span></div>
+            </div>
+            <div class="data-row" style="padding:10px 0; border:none;">
+              <div class="data-row-label">Netanyahu</div>
+              <div><span class="tag green">Religious-Nationalist</span> <span class="tag">Haredi</span></div>
+            </div>
+          </div>
+          <p class="body">This mirrors the <em>völkisch</em> nationalism of the Hitler era, which sought to make Nazism a "religion of the movement" — making the irrational concrete and placing the leader above secular accountability.</p>
+          <p class="footnote" style="margin-top:8px;">Source: Political Views of Adolf Hitler — Wikipedia; University of Sheffield, 2026</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 3 — INSTITUTIONAL EROSION
+════════════════════════════════════ -->
+<div class="page" id="page-3">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">3</div>
+        <span class="caption">Chapter Three</span>
+      </div>
+      <div class="display-sm">Dismantling the Guardrails</div>
+      <p class="body-lg" style="margin-top:12px; max-width:640px;">The active subversion of judicial independence and the civil service is identified as the primary indicator of a transition from a constrained executive to an unconstrained one.</p>
+    </div>
+
+    <section>
+      <div class="grid-3">
+        <div class="card" style="border-top:3px solid var(--red);">
+          <div class="caption" style="color:var(--red); margin-bottom:12px;">Germany · 1933</div>
+          <div class="title" style="margin-bottom:10px;">The Enabling Act</div>
+          <p class="body" style="margin-bottom:14px;">Passed March 23, 1933. Granted the cabinet power to bypass the Reichstag <em>and</em> the President to legislate. The deliberative legislature was effectively abolished in a single vote. Courts were subsequently "synchronised" (<em>Gleichgeschaltet</em>) — all critical judicial voices eliminated.</p>
+          <div class="tag red">Judiciary: Removed</div>
+          <div class="tag red" style="margin-left:0;">Legislature: Abolished</div>
+          <div class="tag red" style="margin-left:0;">Civil Service: Purged</div>
+          <p class="footnote" style="margin-top:12px;">Source: Enabling Act of 1933 — Wikipedia; Holocaust Encyclopedia</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);">
+          <div class="caption" style="color:var(--accent); margin-bottom:12px;">USA · 2025–2026</div>
+          <div class="title" style="margin-bottom:10px;">Schedule F</div>
+          <p class="body" style="margin-bottom:10px;">Reclassifies tens of thousands of career civil servants as "at-will" employees — allowing arbitrary removal and replacement with loyalists. Officially renamed "Schedule Policy/Career."</p>
+          <div class="quote-block" style="margin-bottom:10px;">
+            <div class="quote-text">In March 2026, Trump attacked the Supreme Court after <em>Learning Resources, Inc. v. Trump</em> struck down tariffs — calling Barrett and Gorsuch "unpatriotic" and stating they "should be ashamed of themselves."</div>
+            <div class="quote-attr">SCOTUSblog, March 2026</div>
+          </div>
+          <p class="body">Governs substantially by executive order and declared "faux-emergencies" — bypassing congressional deliberation.</p>
+          <p class="footnote" style="margin-top:10px;">Sources: NTEU; Democracy Forward; Government Executive, 2025–2026</p>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);">
+          <div class="caption" style="color:#1a7a30; margin-bottom:12px;">Israel · 2022–2026</div>
+          <div class="title" style="margin-bottom:10px;">Judicial Overhaul</div>
+          <div class="stat-big" style="font-size:48px; margin-bottom:6px;">150</div>
+          <p class="body" style="margin-bottom:10px;">Judgeships left unfilled — <strong>15% of the national total</strong> — because Justice Minister Yariv Levin refuses to convene the judicial appointments committee. Designed to cancel the Supreme Court's power of legislative review.</p>
+          <div class="quote-block green">
+            <div class="quote-text">Linked directly to Netanyahu's personal legal survival — controlling the judiciary controls the trial process.</div>
+            <div class="quote-attr">The American Prospect, March 2026; CIE, January 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:16px;">Full Institutional Subversion Matrix</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Mechanism</th>
+              <th style="background:rgba(255,59,48,0.06);">Hitler (1933)</th>
+              <th style="background:rgba(0,113,227,0.06);">Trump (2026)</th>
+              <th style="background:rgba(52,199,89,0.06);">Netanyahu (2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="label-col">Judiciary</td><td class="h-col">Bypassed via Enabling Act; courts synchronised</td><td class="t-col">Attacks individual justices; ignores court orders</td><td class="n-col">Judicial Overhaul; blocks appointments; ignores AG</td></tr>
+            <tr><td class="label-col">Civil Service</td><td class="h-col"><em>Gleichschaltung</em> — total synchronisation and purge</td><td class="t-col">Schedule F / Schedule Policy-Career</td><td class="n-col">Focus on judicial capture over civil service</td></tr>
+            <tr><td class="label-col">Legislature</td><td class="h-col">Effectively abolished as deliberative body</td><td class="t-col">Governs by executive order and "faux-emergencies"</td><td class="n-col">Coalition used to pass bills retroactively decriminalising fraud</td></tr>
+            <tr><td class="label-col">Succession / Term</td><td class="h-col">Assumed Presidency after Hindenburg's death (1934)</td><td class="t-col">Non-consecutive 2nd term; first convicted felon elected</td><td class="n-col">Longest-serving PM; seeks to delay or control next election</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footnote" style="margin-top:8px; padding:0 4px;">Sources: Enabling Act — Wikipedia; NTEU / Democracy Forward; The American Prospect 2026; Ballotpedia; CIE January 2026</p>
+    </section>
+
+    <section>
+      <div class="grid-2">
+        <div>
+          <div class="title" style="margin-bottom:16px;">Israeli Conscription Law: Domestic Discipline</div>
+          <p class="body" style="margin-bottom:14px;">While the external narrative frames the Iran campaign as "liberation," the Netanyahu government simultaneously enacted punitive domestic measures targeting draft-evaders — largely affecting the ultra-Orthodox community that forms a key coalition partner.</p>
+          <div class="card">
+            <div class="caption" style="margin-bottom:12px;">Financial Penalties for Draft Evasion</div>
+            <div class="data-row">
+              <div class="data-row-label">Loss of National Insurance discount for draft-evaders</div>
+              <div class="data-row-val">NIS 1,000</div>
+            </div>
+            <div class="data-row">
+              <div class="data-row-label">Daycare subsidy denied to families of draft-evaders</div>
+              <div class="data-row-val">NIS 26,400</div>
+            </div>
+            <p class="footnote" style="margin-top:8px;">Source: Israel Democracy Institute (IDI), 2026; Rise and Fall of the (Non-)Conscription Law</p>
+          </div>
+        </div>
+        <div>
+          <div class="title" style="margin-bottom:16px;">Gaza: Post-War Planning &amp; Colonial Analogies</div>
+          <p class="body" style="margin-bottom:14px;">The analysis notes second-order developments that mirror historical expansionist and colonial-style settlement strategies:</p>
+          <div class="quote-block amber" style="margin-bottom:12px;">
+            <div class="quote-text">A Bulgarian high commissioner has been proposed for oversight of Gaza reconstruction — an external administrator model with colonial precedents.</div>
+            <div class="quote-attr">Comparative Leader Analysis, March 2026</div>
+          </div>
+          <div class="quote-block red">
+            <div class="quote-text">Jared Kushner's real estate redevelopment plans for Gaza are cited as mirroring historical expansionist strategies — territory cleared by military action then monetised by allied private interests.</div>
+            <div class="quote-attr">Comparative Leader Analysis citing J Street "23-State Solution" analysis, 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 4 — WAR AS POLITICAL TOOL
+════════════════════════════════════ -->
+<div class="page" id="page-4">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">4</div>
+        <span class="caption">Chapter Four</span>
+      </div>
+      <div class="display-sm">War as Political Preservation</div>
+      <p class="body-lg" style="margin-top:12px; max-width:640px;">Data from March 2026 suggests the military offensive against Iran is intrinsically linked to the domestic legal and political crises of both Trump and Netanyahu — a recurring pattern of using external conflict to suspend normal accountability.</p>
+    </div>
+
+    <section>
+      <div class="grid-2">
+        <div>
+          <div class="title" style="margin-bottom:16px;">Netanyahu: The Trial &amp; the "War of Redemption"</div>
+          <p class="body" style="margin-bottom:14px;">Benjamin Netanyahu is currently a defendant in <strong>Cases 1000, 2000, and 4000</strong> — facing charges of corruption, fraud, and breach of trust. The 2026 war provided three direct legal benefits:</p>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="chapter-num" style="flex-shrink:0;">1</div>
+              <div><strong style="display:block; font-size:14px; margin-bottom:4px;">Procedural Delays</strong><span class="body">War footing used to postpone trial proceedings, citing prohibition on non-essential public gatherings and mandatory "security consultations."</span></div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="chapter-num" style="flex-shrink:0;">2</div>
+              <div><strong style="display:block; font-size:14px; margin-bottom:4px;">Retroactive Decriminalisation</strong><span class="body">Coalition members advanced legislation to retroactively decriminalise fraud and breach of trust — which would cancel the majority of his charges entirely.</span></div>
+            </div>
+            <div style="display:flex; gap:14px; align-items:flex-start;">
+              <div class="chapter-num" style="flex-shrink:0;">3</div>
+              <div><strong style="display:block; font-size:14px; margin-bottom:4px;">Electoral Leveraging</strong><span class="body">Operation Lion's Roar "victory" is being used to boost poll numbers ahead of Oct 2026 elections. Analysts predict Netanyahu may move the vote to June to capitalise on the "rally around the flag" effect.</span></div>
+            </div>
+          </div>
+          <p class="footnote" style="margin-top:16px;">Sources: The American Prospect, March 2026; Washington Post, March 2026</p>
+        </div>
+        <div>
+          <div class="title" style="margin-bottom:16px;">Trump: Midterms, Approval &amp; the "President of Peace"</div>
+
+          <div class="card" style="margin-bottom:16px;">
+            <div class="stat-big blue">39.7–44.3%</div>
+            <div class="stat-label">Trump job approval rating, March 2026 — entering the Iran campaign</div>
+            <div class="stat-source">Washington Post, March 11, 2026</div>
+          </div>
+
+          <p class="body" style="margin-bottom:14px;">Analysts suggest the Iran strikes serve to distract from:</p>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+            <div style="display:flex; gap:10px; align-items:center;"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div><span class="body">Ongoing revelations in the Epstein files</span></div>
+            <div style="display:flex; gap:10px; align-items:center;"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div><span class="body">Economic friction caused by broad tariff policies</span></div>
+            <div style="display:flex; gap:10px; align-items:center;"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div><span class="body">Historic low approval ratings ahead of the 2026 midterms</span></div>
+          </div>
+          <div class="quote-block">
+            <div class="quote-text">The war narrative allows Trump to frame himself as a "President of Peace" who was <em>forced</em> into action to ward off an "imminent" threat — despite expert testimony that Iran was five to ten years away from ICBM capacity.</div>
+            <div class="quote-attr">Chatham House / Duke Law / JURIST, March 2026</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:16px;">Pre-emption: Stated Goals vs. Analysed Motivations</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Leader</th>
+              <th>Stated Operational Goal</th>
+              <th>Analysed Political Motivation <span style="font-weight:400;text-transform:none;letter-spacing:0;">(per researchers)</span></th>
+              <th>Pre-emptive Trigger Used</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label-col" style="color:var(--red);">Hitler</td>
+              <td>"Remedy the distress of People and Reich"</td>
+              <td>Totalitarian consolidation; elimination of political opposition</td>
+              <td>Reichstag Fire — declared national emergency</td>
+            </tr>
+            <tr>
+              <td class="label-col" style="color:var(--accent);">Trump</td>
+              <td>Ward off "imminent" Iranian nuclear threat; "Operation Epic Fury"</td>
+              <td>Distract from Epstein files; boost 2026 midterm standing; "President of Peace" narrative</td>
+              <td>"Clear evidence of peril" / "last window of opportunity" — Iran 5–10 yrs from ICBM per experts</td>
+            </tr>
+            <tr>
+              <td class="label-col" style="color:#1a7a30;">Netanyahu</td>
+              <td>"Ensure the eternity of Israel"; stop nuclear threat; "liberate" Iranian people</td>
+              <td>Stay out of jail; lift falling poll numbers; leverage "victory" before October elections</td>
+              <td>"Clear evidence of peril" — same framing as Trump; Operation Lion's Roar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footnote" style="margin-top:8px; padding:0 4px;">Sources: Enabling Act — Wikipedia; Duke Law analysis; Chatham House; JURIST; The American Prospect; Washington Post</p>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:16px;">Trump Domestic Tax Policy: Populist Delivery During Wartime</div>
+      <p class="body" style="margin-bottom:20px; max-width:640px;">The researchers note that Trump's tax cuts served as a parallel populist mechanism — delivering tangible financial benefits to supporters during the war period, reinforcing base loyalty.</p>
+      <div class="grid-4">
+        <div class="card">
+          <div class="stat-big blue">27.5M</div>
+          <div class="stat-label">Returns claiming Working Families Tax Cut — 45% of all returns</div>
+          <div class="stat-source">Treasury.gov, March 2026</div>
+        </div>
+        <div class="card">
+          <div class="stat-big blue">3.5M</div>
+          <div class="stat-label">Returns with No Tax on Tips benefit</div>
+          <div class="stat-source">Treasury.gov, March 2026</div>
+        </div>
+        <div class="card">
+          <div class="stat-big blue">15.5M</div>
+          <div class="stat-label">Returns with No Tax on Overtime benefit</div>
+          <div class="stat-source">Treasury.gov, March 2026</div>
+        </div>
+        <div class="card">
+          <div class="stat-big blue">9.2M</div>
+          <div class="stat-label">Returns with Enhanced Deduction for Seniors</div>
+          <div class="stat-source">Treasury.gov, March 2026</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <div class="stat-big amber">$166B</div>
+        <div class="stat-label">Tariff revenue deemed unlawful (<em>Learning Resources, Inc. v. Trump</em>) — 40–80% repayment process initiated</div>
+        <div class="stat-source">CFR; SCOTUSblog, March 2026</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 5 — INTERNATIONAL LAW & SECOND-ORDER
+════════════════════════════════════ -->
+<div class="page" id="page-5">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">5</div>
+        <span class="caption">Chapter Five</span>
+      </div>
+      <div class="display-sm">International Law &amp; Second-Order Effects</div>
+      <p class="body-lg" style="margin-top:12px; max-width:640px;">Non-compliance with international legal institutions, the fracturing of global alliances, and the deeper structural consequences of the 2026 environment.</p>
+    </div>
+
+    <section>
+      <div class="grid-2">
+        <div>
+          <div class="title" style="margin-bottom:16px;">Defiance of the ICC &amp; ICJ</div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="quote-block red">
+              <div class="quote-text">In 2024–2025, the ICC issued arrest warrants for Netanyahu and Gallant for war crimes in Gaza. In February 2025, Trump signed an executive order imposing sanctions on ICC officials — calling the pursuit "illegitimate and baseless."</div>
+              <div class="quote-attr">AJC / ASIL, February 2025</div>
+            </div>
+            <div class="quote-block amber">
+              <div class="quote-text">Hungary withdrew from the ICC in 2025 after hosting Netanyahu — reflecting Trump's broader pattern of dismantling multilateral accountability structures.</div>
+              <div class="quote-attr">Parliamentarians for Global Action, April 2025</div>
+            </div>
+            <div class="quote-block">
+              <div class="quote-text">The US intervened on Israel's behalf in ICJ proceedings (South Africa's genocide allegations), arguing that civilian casualties — "even if widespread" — do not prove genocidal intent.</div>
+              <div class="quote-attr">Times of Israel / ICJ proceedings, 2025</div>
+            </div>
+            <div class="quote-block amber">
+              <div class="quote-text">Trump's foreign policy included threats of force against Greenland, the "unlawful rendition" of Nicolás Maduro from Venezuela, and threats of a trade embargo on Spain for refusing to host US forces for the Iran strikes.</div>
+              <div class="quote-attr">Chatham House, March 2026</div>
+            </div>
+          </div>
+          <p class="footnote" style="margin-top:12px;">Researchers draw a parallel to Hitler's Lebensraum doctrine — where the executive defines national interest as superior to the sovereignty of other nations or the constraints of international law.</p>
+        </div>
+        <div>
+          <div class="title" style="margin-bottom:16px;">International Non-Compliance Matrix</div>
+          <div class="table-wrap">
+            <table class="comp-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th style="background:rgba(255,59,48,0.06);">Hitler</th>
+                  <th style="background:rgba(0,113,227,0.06);">Trump</th>
+                  <th style="background:rgba(52,199,89,0.06);">Netanyahu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="label-col">Int'l Law Body</td><td class="h-col">Withdrew from League of Nations</td><td class="t-col">Sanctioned ICC officials</td><td class="n-col">Ignores ICC arrest warrants</td></tr>
+                <tr><td class="label-col">Sovereignty</td><td class="h-col">Lebensraum expansionism</td><td class="t-col">Greenland / Maduro / Spain threats</td><td class="n-col">Gaza redevelopment / Gaza buffer zone</td></tr>
+                <tr><td class="label-col">Alliance Model</td><td class="h-col">Bilateral pacts over League</td><td class="t-col">Coercive bilateralism; NATO pressure</td><td class="n-col">US-Israel axis; isolation of ICC members</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="footnote" style="margin-top:8px;">Sources: El País "Law of the Jungle," March 2026; ASIL; AJC; American Progress</p>
+
+          <div style="margin-top:20px;">
+            <div class="title" style="margin-bottom:14px; font-size:17px;">Fragmentation of Global Alliances</div>
+            <p class="body" style="margin-bottom:12px;">The 2026 war exposed significant rifts in the transatlantic alliance — mirroring the 1930s collapse of the League of Nations' collective security model:</p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:6px;"></div><span class="body">Trump threatened Spain with a trade embargo for refusing to host US forces</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:6px;"></div><span class="body">Trump disparaged the UK-brokered Chagos Island agreement</span></div>
+              <div style="display:flex; gap:10px; align-items:flex-start;"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:6px;"></div><span class="body">States increasingly shifting to bilateral arrangements with dominant executives over multilateral legal adherence</span></div>
+            </div>
+            <p class="footnote" style="margin-top:10px;">Source: American Progress; Iran Spotlights Transatlantic Alliance, 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 6 — CONCLUSIONS
+════════════════════════════════════ -->
+<div class="page" id="page-6">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num">6</div>
+        <span class="caption">Chapter Six</span>
+      </div>
+      <div class="display-sm">Conclusions</div>
+      <p class="body-lg" style="margin-top:12px; max-width:640px;">The synthesis of the data identifies the three subjects as responding not merely in similar style, but to a structural evolution in democratic decay — a shared morphological framework with observable, measurable consequences.</p>
+    </div>
+
+    <section>
+      <div class="title" style="margin-bottom:20px;">The Feedback Loop of Authoritarianism</div>
+      <div class="grid-2-1">
+        <div class="loop-diagram">
+          <div class="loop-step warn">
+            <div class="loop-step-num" style="background:var(--accent);">1</div>
+            <div><strong>Judiciary attempts accountability</strong> — criminal conviction (Trump), corruption trial (Netanyahu), ICC warrants</div>
+          </div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step">
+            <div class="loop-step-num" style="background:var(--red);">2</div>
+            <div><strong>Executive escalates delegitimisation</strong> — courts attacked as "unpatriotic," "Deep State," political weapons</div>
+          </div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step">
+            <div class="loop-step-num">3</div>
+            <div><strong>External conflict launched or escalated</strong> — Operation Epic Fury / Lion's Roar, Feb 28, 2026</div>
+          </div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step warn">
+            <div class="loop-step-num" style="background:var(--amber);">4</div>
+            <div><strong>Wartime emergency suspends accountability</strong> — trial delays, decriminalisation bills, rally-around-the-flag effect</div>
+          </div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step" style="border:1.5px solid var(--red);">
+            <div class="loop-step-num" style="background:var(--red);">↺</div>
+            <div><strong>Loop restarts at higher intensity</strong> — the only path to personal safety for the leader is total capture of the state</div>
+          </div>
+          <p class="footnote" style="margin-top:10px;">Source: Comparative Leader Analysis, March 2026 — analytical conclusion</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="card-dark">
+            <div class="caption" style="color:rgba(255,255,255,0.5); margin-bottom:12px;">Researcher's Conclusion</div>
+            <p style="font-size:14px; color:rgba(255,255,255,0.85); line-height:1.65; font-style:italic;">"The entity known as 'liberal democracy' is in a state of advanced degradation in both the United States and Israel as of March 2026. The subjects Trump and Netanyahu have successfully utilised the 2026 Iran War to achieve a level of executive autonomy that closely mirrors the early-stage consolidation of the historical subject, Hitler."</p>
+            <p style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:10px;">Comparative Leader Analysis, March 2026</p>
+          </div>
+          <div class="card" style="background:rgba(255,59,48,0.05); border-color:rgba(255,59,48,0.15);">
+            <div class="caption" style="color:var(--red); margin-bottom:8px;">Future Trajectory</div>
+            <p class="body">"A continued descent into a 'law of the jungle' where institutional rules are replaced by the singular will of the executive."</p>
+            <p class="footnote" style="margin-top:6px;">El País; Chatham House; CFR — March 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:20px;">Three Core Structural Findings</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-badge red">⚖️</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">Personal Immunity as State Interest</div>
+          <p class="body">Legal liabilities (Trump's felony convictions, Netanyahu's corruption trial, ICC warrants) are reframed as attacks on the state itself — justifying the use of national military and legislative resources for personal legal defense.</p>
+          <p class="footnote" style="margin-top:10px;">The American Prospect; SCOTUSblog; JURIST, 2026</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge amber">📡</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">Narrative Monopolisation</div>
+          <p class="body">Systematic discrediting of independent information creates a vacuum filled by executive spectacle and "alternative facts" — making truth relative to factional loyalty rather than evidence.</p>
+          <p class="footnote" style="margin-top:10px;">Harvard Political Review; University of Sheffield; New Lines Magazine, 2026</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge blue">💣</div>
+          <div class="title" style="font-size:16px; margin-bottom:8px;">Kinetic Diversion</div>
+          <p class="body">The transition from domestic political vulnerability to wartime leadership provides a temporary but powerful suspension of the democratic and legal standards of the post-1945 order.</p>
+          <p class="footnote" style="margin-top:10px;">Chatham House; American Progress; RUSI, March 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="title" style="margin-bottom:16px;">Full Executive Comparison — Summary Matrix</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th style="background:rgba(255,59,48,0.06);">Hitler (1933–1945)</th>
+              <th style="background:rgba(0,113,227,0.06);">Trump (2025–2026)</th>
+              <th style="background:rgba(52,199,89,0.06);">Netanyahu (2022–2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="label-col">Legal Constraint</td><td class="h-col">Enabling Act (removed)</td><td class="t-col">Schedule F (circumvented)</td><td class="n-col">Judicial Overhaul (in progress)</td></tr>
+            <tr><td class="label-col">Media Constraint</td><td class="h-col">Gleichschaltung (removed)</td><td class="t-col">"Fake News" (fragmented)</td><td class="n-col">"Deep State" narrative</td></tr>
+            <tr><td class="label-col">International Law</td><td class="h-col">Withdrew from League of Nations</td><td class="t-col">Sanctioned ICC; Lebensraum-parallel expansionism</td><td class="n-col">Ignores ICC arrest warrants</td></tr>
+            <tr><td class="label-col">Primary Conflict</td><td class="h-col">WWII — expansionist</td><td class="t-col">2026 Iran War — "preventative"</td><td class="n-col">2026 Iran War — "redemptive"</td></tr>
+            <tr><td class="label-col">Political Base</td><td class="h-col">Völkisch / Racialized</td><td class="t-col">MAGA / Ethnonationalist / Evangelical</td><td class="n-col">Religious-Nationalist / Haredi</td></tr>
+            <tr><td class="label-col">Political Style</td><td class="h-col">Performance / Spectacle</td><td class="t-col">Performance / Spectacle</td><td class="n-col">Strategic / Indispensable Leader</td></tr>
+            <tr><td class="label-col">Religious Framing</td><td class="h-col">Völkisch nationalism as "religion of the movement"</td><td class="t-col">Evangelical alignment; "chosen" rhetoric</td><td class="n-col">"Reach the kingdom" / Messiah's return rhetoric</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footnote" style="margin-top:8px; padding:0 4px;">Sources: Wikipedia; NTEU; The American Prospect; Cult of Personality — Wikipedia; University of Sheffield; Middle East Eye, 2026</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE 7 — SOURCES
+════════════════════════════════════ -->
+<div class="page" id="page-7">
+  <div class="container">
+
+    <div class="chapter-header">
+      <div class="chapter-tag">
+        <div class="chapter-num" style="background:var(--ink3);">S</div>
+        <span class="caption">Works Cited</span>
+      </div>
+      <div class="display-sm">52 Sources</div>
+      <p class="body-lg" style="margin-top:12px; max-width:600px;">All sources cited in the original Comparative Leader Analysis, accessed March 14, 2026.</p>
+    </div>
+
+    <section>
+      <div class="source-grid">
+        <div class="source-item"><span class="source-num">1</span>Ongoing Iran Conflict — Recorded Future, Mar 2026</div>
+        <div class="source-item"><span class="source-num">2</span>2026 Iran War — Wikipedia</div>
+        <div class="source-item"><span class="source-num">3</span>Operation Epic Fury — Flashpoint, Mar 2026</div>
+        <div class="source-item"><span class="source-num">4</span>Iran Update Evening Special Report, Mar 13, 2026 — ISW</div>
+        <div class="source-item"><span class="source-num">5</span>Trump making use of force the new normal — Chatham House, Mar 2026</div>
+        <div class="source-item"><span class="source-num">6</span>"Changing face of the Middle East" — Times of India, Mar 2026</div>
+        <div class="source-item"><span class="source-num">7</span>Israel's 'Roaring Lion' — RUSI, Mar 2026</div>
+        <div class="source-item"><span class="source-num">8</span>Rhetorical Demagoguery: Trump &amp; Hitler — Gardner-Webb University</div>
+        <div class="source-item"><span class="source-num">9</span>Lying Press — Wikipedia</div>
+        <div class="source-item"><span class="source-num">10</span>Trump's Rhetoric Echoes Hitler — Harvard Political Review</div>
+        <div class="source-item"><span class="source-num">11</span>Do Trump and MAGA Echo 1930s Germany? — Medium / Rees</div>
+        <div class="source-item"><span class="source-num">12</span>Uncanny Echoes of Iraq — New Lines Magazine, Mar 2026</div>
+        <div class="source-item"><span class="source-num">13</span>Whatever It Takes — The American Prospect, Mar 2026</div>
+        <div class="source-item"><span class="source-num">14</span>Rhetorical Demagoguery full text — Digital Commons @ Gardner-Webb</div>
+        <div class="source-item"><span class="source-num">15</span>Trump and Hitler — How Accurate? — The Globalist</div>
+        <div class="source-item"><span class="source-num">16</span>Netanyahu: Trump grants wishes, but risks — Washington Post, Mar 2026</div>
+        <div class="source-item"><span class="source-num">17</span>Political Views of Adolf Hitler — Wikipedia</div>
+        <div class="source-item"><span class="source-num">18</span>Adolf Hitler and the Nazi Rise to Power — Holocaust Encyclopedia</div>
+        <div class="source-item"><span class="source-num">19</span>2024 United States Presidential Election — Wikipedia</div>
+        <div class="source-item"><span class="source-num">20</span>Statement by PM Netanyahu, 7 March 2026 — gov.il</div>
+        <div class="source-item"><span class="source-num">21</span>Cult of Personality — Wikipedia</div>
+        <div class="source-item"><span class="source-num">22</span>US-Israel attack on Iran violates international law — JURIST, Mar 2026</div>
+        <div class="source-item"><span class="source-num">23</span>Enabling Act of 1933 — Wikipedia</div>
+        <div class="source-item"><span class="source-num">24</span>OPM Establishes Safeguards Against Schedule F — NTEU</div>
+        <div class="source-item"><span class="source-num">25</span>Schedule F Attempt is Unlawful — Democracy Forward</div>
+        <div class="source-item"><span class="source-num">26</span>Final Schedule F Regulations — Government Executive, Nov 2025</div>
+        <div class="source-item"><span class="source-num">27</span>When Presidents Attack the Supreme Court — SCOTUSblog, Mar 2026</div>
+        <div class="source-item"><span class="source-num">28</span>Trump-Hitler Comparison: 2016 Predictions Revisited — PRIO, 2021</div>
+        <div class="source-item"><span class="source-num">29</span>Do Trump's First 100 Days Echo Hitler's? — The Forward</div>
+        <div class="source-item"><span class="source-num">30</span>Presidential Election, 2024 — Ballotpedia</div>
+        <div class="source-item"><span class="source-num">31</span>US Presidential Election of 2024 — Britannica</div>
+        <div class="source-item"><span class="source-num">32</span>2026 Israeli Legislative Election — Wikipedia</div>
+        <div class="source-item"><span class="source-num">33</span>Republicans Could Outperform Midterm Expectations — Washington Post, Mar 2026</div>
+        <div class="source-item"><span class="source-num">34</span>Three Justifications for US/Israeli Operations — Duke Law, Mar 2026</div>
+        <div class="source-item"><span class="source-num">35</span>International Justice Update — Parliamentarians for Global Action, Apr 2025</div>
+        <div class="source-item"><span class="source-num">36</span>US Defends Israel vs. South Africa's Genocide Allegation — Times of Israel</div>
+        <div class="source-item"><span class="source-num">37</span>What You Need to Know About the ICC — AJC</div>
+        <div class="source-item"><span class="source-num">38</span>Trump Signs Executive Order Sanctioning ICC — ASIL, 2025</div>
+        <div class="source-item"><span class="source-num">39</span>Law of the Jungle: Trump, Putin, Netanyahu — El País, Mar 2026</div>
+        <div class="source-item"><span class="source-num">40</span>Iran Spotlights How Trump Is Fracturing Transatlantic Alliance — American Progress</div>
+        <div class="source-item"><span class="source-num">41</span>Adolf Hitler — Wikipedia</div>
+        <div class="source-item"><span class="source-num">42</span>Trump and Hitler: A Comparative Study in Lying — University of Sheffield</div>
+        <div class="source-item"><span class="source-num">43</span>Netanyahu: "Reach the Kingdom" / "Messiah's Return" — Middle East Eye, Mar 2026</div>
+        <div class="source-item"><span class="source-num">44</span>Political Views of Adolf Hitler (Völkisch) — Wikipedia</div>
+        <div class="source-item"><span class="source-num">45</span>Germany's Iran Policy — Politics Today</div>
+        <div class="source-item"><span class="source-num">46</span>What an Iran Negotiator Thinks Could Happen — The Guardian, Mar 12, 2026</div>
+        <div class="source-item"><span class="source-num">47</span>The Rise and Fall of the (Non-)Conscription Law — IDI, 2026</div>
+        <div class="source-item"><span class="source-num">48</span>A Roadmap to the 23-State Solution — J Street</div>
+        <div class="source-item"><span class="source-num">49</span>What does Trump really have in common with Hitler? — The Guardian, 2024</div>
+        <div class="source-item"><span class="source-num">50</span>President Trump's Tax Cuts — Treasury.gov, Mar 2026</div>
+        <div class="source-item"><span class="source-num">51</span>Iran Vows to Keep Fighting — CFR</div>
+        <div class="source-item"><span class="source-num">52</span>Status of Israel's Judicial Overhaul, January 2026 — CIE</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     BOTTOM NAV
+════════════════════════════════════ -->
+<nav id="nav-bar">
+  <a href="index.html" class="nav-item" style="text-decoration:none;color:var(--accent);">← Home</a>
+  <div class="nav-divider"></div>
+  <button class="nav-prev" onclick="changePage(-1)">← Prev</button>
+  <div class="nav-divider"></div>
+  <button class="nav-item active" data-page="0" onclick="goToPage(0)">Cover</button>
+  <button class="nav-item" data-page="1" onclick="goToPage(1)">1 · Conflict</button>
+  <button class="nav-item" data-page="2" onclick="goToPage(2)">2 · Rhetoric</button>
+  <button class="nav-item" data-page="3" onclick="goToPage(3)">3 · Institutions</button>
+  <button class="nav-item" data-page="4" onclick="goToPage(4)">4 · War</button>
+  <button class="nav-item" data-page="5" onclick="goToPage(5)">5 · Int'l Law</button>
+  <button class="nav-item" data-page="6" onclick="goToPage(6)">6 · Conclusions</button>
+  <button class="nav-item" data-page="7" onclick="goToPage(7)">Sources</button>
+  <div class="nav-divider"></div>
+  <div class="nav-page-indicator" id="pageIndicator">1 / 8</div>
+  <div class="nav-divider"></div>
+  <button class="nav-next" onclick="changePage(1)">Next →</button>
+</nav>
+
+<script>
+const TOTAL = 8;
+let cur = 0;
+const pages = Array.from({length: TOTAL}, (_, i) => document.getElementById('page-' + i));
+const navItems = document.querySelectorAll('.nav-item');
+
+function goToPage(n) {
+  if (n < 0 || n >= TOTAL) return;
+  pages[cur].classList.remove('active');
+  cur = n;
+  pages[cur].classList.add('active');
+  navItems.forEach(b => b.classList.toggle('active', +b.dataset.page === n));
+  document.getElementById('pageIndicator').textContent = (n + 1) + ' / ' + TOTAL;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function changePage(d) { goToPage(cur + d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changePage(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changePage(-1);
+});
+</script>
+</body>
+</html>
