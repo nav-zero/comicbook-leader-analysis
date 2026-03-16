@@ -278,6 +278,40 @@
       color: rgba(245,245,245,0.8);
       font-variant-numeric: tabular-nums;
     }
+    .podcast-progress-wrap {
+      display: none;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .podcast-panel.is-playing .podcast-progress-wrap {
+      display: block;
+    }
+    .podcast-progress-track {
+      position: relative;
+      height: 14px;
+      background: rgba(0,0,0,0.4);
+      border: 2px solid var(--ink-black);
+      border-radius: 999px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
+    .podcast-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--marvel-red), var(--marvel-yellow));
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.08s linear;
+      pointer-events: none;
+    }
+    .podcast-progress-times {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.35rem;
+      font-size: 0.75rem;
+      color: rgba(245,245,245,0.85);
+      font-variant-numeric: tabular-nums;
+    }
     .hidden-audio {
       display: none;
     }
@@ -332,7 +366,7 @@
           <div class="podcast-title">Are Trump and Netanyahu Worse Than Hitler?</div>
           <p class="podcast-subtitle">Long-form discussion inspired by the comparative analysis on this site.</p>
         </div>
-        <div>
+        <div style="width:100%;">
           <div class="podcast-controls">
             <button class="podcast-play" type="button" id="podcastPlay">
               <span id="podcastPlayIcon">▶</span>
@@ -345,6 +379,15 @@
               <button type="button" class="speed-chip" data-speed="2">2x</button>
             </div>
             <span class="podcast-time" id="podcastTime">0:00 / 0:00</span>
+          </div>
+          <div class="podcast-progress-wrap" id="podcastProgressWrap">
+            <div class="podcast-progress-track" id="podcastProgressTrack" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+              <div class="podcast-progress-fill" id="podcastProgressFill"></div>
+            </div>
+            <div class="podcast-progress-times">
+              <span id="podcastCurrentTime">0:00</span>
+              <span id="podcastTotalTime">0:00</span>
+            </div>
           </div>
         </div>
       </div>
@@ -368,10 +411,15 @@
     (function() {
       const audio = document.getElementById('podcastAudio');
       if (!audio) return;
+      const panel = document.querySelector('.podcast-panel');
       const playBtn = document.getElementById('podcastPlay');
       const playIcon = document.getElementById('podcastPlayIcon');
       const playLabel = document.getElementById('podcastPlayLabel');
       const timeEl = document.getElementById('podcastTime');
+      const progressTrack = document.getElementById('podcastProgressTrack');
+      const progressFill = document.getElementById('podcastProgressFill');
+      const currentTimeEl = document.getElementById('podcastCurrentTime');
+      const totalTimeEl = document.getElementById('podcastTotalTime');
       const speedChips = Array.from(document.querySelectorAll('.speed-chip'));
 
       function formatTime(sec) {
@@ -383,6 +431,20 @@
 
       function updateTime() {
         timeEl.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration || 0)}`;
+        if (currentTimeEl) currentTimeEl.textContent = formatTime(audio.currentTime);
+        if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration || 0);
+        const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+        if (progressFill) progressFill.style.width = pct + '%';
+        if (progressTrack) progressTrack.setAttribute('aria-valuenow', Math.round(pct));
+      }
+
+      function seekFromEvent(e) {
+        if (!audio.duration) return;
+        const rect = progressTrack.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const pct = Math.max(0, Math.min(1, x / rect.width));
+        audio.currentTime = pct * audio.duration;
+        updateTime();
       }
 
       playBtn.addEventListener('click', () => {
@@ -396,13 +458,30 @@
       audio.addEventListener('play', () => {
         playIcon.textContent = '⏸';
         playLabel.textContent = 'Pause';
+        if (panel) panel.classList.add('is-playing');
       });
       audio.addEventListener('pause', () => {
         playIcon.textContent = '▶';
         playLabel.textContent = 'Play';
       });
       audio.addEventListener('timeupdate', updateTime);
-      audio.addEventListener('loadedmetadata', updateTime);
+      audio.addEventListener('loadedmetadata', () => {
+        updateTime();
+        if (totalTimeEl) totalTimeEl.textContent = formatTime(audio.duration);
+      });
+
+      if (progressTrack) {
+        progressTrack.addEventListener('click', seekFromEvent);
+        progressTrack.addEventListener('keydown', function(e) {
+          if (!audio.duration) return;
+          const step = e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 5 : e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -5 : 0;
+          if (step) {
+            e.preventDefault();
+            audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + step));
+            updateTime();
+          }
+        });
+      }
 
       speedChips.forEach(chip => {
         chip.addEventListener('click', () => {
