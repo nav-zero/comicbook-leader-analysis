@@ -161,6 +161,127 @@
     .book-btn.book-2 { background: linear-gradient(180deg, #518cca 0%, #2c5282 100%); color: var(--white); text-shadow: 2px 2px 0 var(--ink-black); }
     .book-btn.book-3 { background: linear-gradient(180deg, var(--marvel-yellow) 0%, var(--marvel-gold) 100%); color: var(--ink-black); }
 
+    /* Podcast panel */
+    .podcast-panel {
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 720px;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.16), transparent 55%), #111325;
+      border: 4px solid var(--ink-black);
+      box-shadow: 8px 8px 0 var(--ink-black);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .podcast-panel::before {
+      content: '';
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,203,5,0.18), transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(226,54,54,0.25), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .podcast-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .podcast-inner {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+    }
+    .podcast-badge {
+      font-family: 'Bangers', cursive;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--marvel-yellow);
+      margin-bottom: 0.25rem;
+    }
+    .podcast-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      color: var(--white);
+      text-shadow: 2px 2px 0 var(--ink-black);
+    }
+    .podcast-subtitle {
+      font-size: 0.9rem;
+      color: rgba(245,245,245,0.8);
+      margin-top: 0.4rem;
+    }
+    .podcast-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.9rem;
+    }
+    .podcast-play {
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      border: 3px solid var(--ink-black);
+      background: linear-gradient(180deg, var(--marvel-yellow) 0%, var(--marvel-gold) 100%);
+      color: var(--ink-black);
+      box-shadow: 4px 4px 0 var(--ink-black);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-transform: uppercase;
+    }
+    .podcast-play:hover {
+      transform: translate(-1px, -2px);
+      box-shadow: 6px 6px 0 var(--ink-black);
+    }
+    .podcast-play:active {
+      transform: translate(1px, 1px);
+      box-shadow: 3px 3px 0 var(--ink-black);
+    }
+    .podcast-speed-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(245,245,245,0.7);
+      margin-right: 0.25rem;
+    }
+    .speed-chip {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 2px solid rgba(245,245,245,0.5);
+      background: rgba(0,0,0,0.25);
+      color: rgba(245,245,245,0.9);
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.05em;
+    }
+    .speed-chip.active {
+      background: var(--marvel-red);
+      border-color: var(--ink-black);
+      color: var(--white);
+      box-shadow: 2px 2px 0 var(--ink-black);
+    }
+    .podcast-time {
+      margin-left: auto;
+      font-size: 0.8rem;
+      color: rgba(245,245,245,0.8);
+      font-variant-numeric: tabular-nums;
+    }
+    .hidden-audio {
+      display: none;
+    }
+
     /* "Choose your issue" label */
     .choose-label {
       font-family: 'Bangers', cursive;
@@ -203,6 +324,32 @@
       <button class="book-btn book-2" type="button">Book 2</button>
       <button class="book-btn book-3" type="button">Book 3</button>
     </div>
+
+    <section class="podcast-panel" aria-label="Podcast player">
+      <div class="podcast-inner">
+        <div>
+          <div class="podcast-badge">New · Audio</div>
+          <div class="podcast-title">Are Trump and Netanyahu Worse Than Hitler?</div>
+          <p class="podcast-subtitle">Long-form discussion inspired by the comparative analysis on this site.</p>
+        </div>
+        <div>
+          <div class="podcast-controls">
+            <button class="podcast-play" type="button" id="podcastPlay">
+              <span id="podcastPlayIcon">▶</span>
+              <span id="podcastPlayLabel">Play</span>
+            </button>
+            <div style="display:flex;align-items:center;gap:0.35rem;">
+              <span class="podcast-speed-label">Speed</span>
+              <button type="button" class="speed-chip active" data-speed="1">1x</button>
+              <button type="button" class="speed-chip" data-speed="1.5">1.5x</button>
+              <button type="button" class="speed-chip" data-speed="2">2x</button>
+            </div>
+            <span class="podcast-time" id="podcastTime">0:00 / 0:00</span>
+          </div>
+        </div>
+      </div>
+      <audio id="podcastAudio" class="hidden-audio" src="podcast.m4a"></audio>
+    </section>
   </div>
 
   <script>
@@ -216,6 +363,55 @@
         }
       });
     });
+
+    // Podcast player logic
+    (function() {
+      const audio = document.getElementById('podcastAudio');
+      if (!audio) return;
+      const playBtn = document.getElementById('podcastPlay');
+      const playIcon = document.getElementById('podcastPlayIcon');
+      const playLabel = document.getElementById('podcastPlayLabel');
+      const timeEl = document.getElementById('podcastTime');
+      const speedChips = Array.from(document.querySelectorAll('.speed-chip'));
+
+      function formatTime(sec) {
+        if (!isFinite(sec)) return '0:00';
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60).toString().padStart(2, '0');
+        return m + ':' + s;
+      }
+
+      function updateTime() {
+        timeEl.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration || 0)}`;
+      }
+
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      });
+
+      audio.addEventListener('play', () => {
+        playIcon.textContent = '⏸';
+        playLabel.textContent = 'Pause';
+      });
+      audio.addEventListener('pause', () => {
+        playIcon.textContent = '▶';
+        playLabel.textContent = 'Play';
+      });
+      audio.addEventListener('timeupdate', updateTime);
+      audio.addEventListener('loadedmetadata', updateTime);
+
+      speedChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const speed = parseFloat(chip.dataset.speed || '1');
+          audio.playbackRate = speed;
+          speedChips.forEach(c => c.classList.toggle('active', c === chip));
+        });
+      });
+    })();
   </script>
 </body>
 </html>
