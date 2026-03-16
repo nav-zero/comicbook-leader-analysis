@@ -166,7 +166,33 @@ section + section { border-top: 1px solid var(--divider); }
 .nav-divider { width: 1px; height: 24px; background: var(--divider); margin: 0 4px; }
 .nav-page-indicator { font-size: 11px; color: var(--ink4); padding: 0 12px; white-space: nowrap; font-weight: 400; }
 
-body { padding-bottom: 52px; }
+body { padding-bottom: 52px; padding-top: 52px; }
+
+/* ── SITE LOGO HEADER ── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--ink);
+  border-bottom: 2px solid var(--divider);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1001;
+}
+.site-header a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 0;
+}
+.site-header img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
 
 /* ── CHAPTER HEADER ── */
 .chapter-header {
@@ -412,6 +438,12 @@ hr { border: none; border-top: 1px solid var(--divider); margin: 40px 0; }
 </style>
 </head>
 <body>
+
+<header class="site-header">
+  <a href="index.html" title="Back to Home">
+    <img src="logo.svg" alt="Comparative Analysis — Home"/>
+  </a>
+</header>
 
 <!-- ════════════════════════════════════
      COVER / PAGE 0
